@@ -30,9 +30,14 @@ _EMAIL_RE = re.compile(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
 
 
 class Perfil(str, Enum):
-    """Perfis de acesso do painel, do mais amplo ao mais restrito."""
+    """Perfis de acesso do painel, do mais amplo ao mais restrito.
+
+    ADMIN e MASTER têm acesso total; a diferença é que **só o ADMIN cria
+    usuários** (ver :mod:`api.domain_permissao`).
+    """
 
     ADMIN = 'ADMIN'
+    MASTER = 'MASTER'
     GESTOR = 'GESTOR'
     OPERADOR = 'OPERADOR'
     LEITOR = 'LEITOR'

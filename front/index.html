@@ -25,6 +25,11 @@
     <span class="breadcrumb-pill" id="breadcrumb">Módulos</span>
   </div>
   <div class="topbar-actions">
+    <span id="sco-usuario-barra" class="sco-usuario-barra" hidden>
+      <span id="sco-usuario-nome" class="muted"></span>
+      <button class="btn btn-secondary btn-sm" id="btn-sco-admin" type="button" hidden>👤 Usuários</button>
+      <button class="btn btn-secondary btn-sm" id="btn-sco-sair" type="button">Sair</button>
+    </span>
     <button class="theme-btn" id="btn-tema" type="button" aria-label="Alternar tema">☀️ Claro</button>
     <button class="btn btn-secondary" id="btn-back" hidden>← Voltar</button>
   </div>
@@ -1022,8 +1027,127 @@
     </div>
   </section>
 
+  <!-- ====== PÁGINA: GESTÃO DE USUÁRIOS (Segurança) ====== -->
+  <section class="page" id="page-usuarios" hidden>
+    <div class="card">
+      <h2 class="section-title">Gestão de Usuários</h2>
+      <p class="muted">
+        Usuários, equipes e solicitações de acesso do SCO. <b>Criar e editar</b>
+        usuário é do <b>ADMIN</b>; <b>trocar a equipe e o status</b> é do
+        <b>ADMIN</b> e do <b>MASTER</b>. A aprovação de novos acessos é feita
+        pelos links do e-mail enviado aos autorizadores.
+      </p>
+      <div class="alert" id="usuarios-aviso" hidden></div>
+    </div>
+
+    <!-- Usuários -->
+    <div class="card">
+      <div class="aba-titulo">Usuários</div>
+      <div class="filtros-grid">
+        <div class="field field-busca">
+          <label for="usr-busca">Busca</label>
+          <input type="text" id="usr-busca" placeholder="Nome, e-mail ou perfil...">
+        </div>
+      </div>
+      <div class="alert-invert" id="usr-resumo">0 usuário(s)</div>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-usuarios"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="tbl-hint">💡 Clique numa linha para editar. Trocar equipe/status vale para ADMIN e MASTER; nome, e-mail e perfil só o ADMIN.</div>
+    </div>
+
+    <!-- Formulário de usuário -->
+    <div class="card" id="card-usr-form">
+      <div class="aba-titulo" id="titulo-usr-form">Novo usuário</div>
+      <div class="form-grid">
+        <div class="field"><label>Nome *</label><input id="usr-nome"></div>
+        <div class="field"><label>E-mail *</label><input type="email" id="usr-email"></div>
+        <div class="field"><label>Perfil</label>
+          <select id="usr-perfil">
+            <option>OPERADOR</option><option>LEITOR</option><option>GESTOR</option>
+            <option>MASTER</option><option>ADMIN</option>
+          </select>
+        </div>
+        <div class="field"><label>Status</label>
+          <select id="usr-status"><option>ATIVO</option><option>SUSPENSO</option></select>
+        </div>
+        <div class="field"><label>Equipe</label><select id="usr-equipe"></select></div>
+      </div>
+      <div class="alert" id="usr-senha-provisoria" hidden></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-usr-salvar">Criar usuário</button>
+        <button class="btn btn-secondary" id="btn-usr-novo">Novo / Limpar</button>
+      </div>
+      <div class="form-msg" id="msg-usr"></div>
+    </div>
+
+    <!-- Equipes -->
+    <div class="card">
+      <div class="aba-titulo">Equipes</div>
+      <div class="table-wrapper">
+        <table class="grid grid-compact" id="tbl-equipes"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="tbl-hint">💡 Clique numa equipe para renomear ou ativar/desativar.</div>
+      <div class="form-grid">
+        <div class="field"><label id="lbl-eqp-nome">Nome da equipe *</label><input id="eqp-nome"></div>
+        <div class="field field-inline" id="eqp-ativo-campo" hidden>
+          <label for="eqp-ativo">Ativa</label>
+          <label class="switch"><input type="checkbox" id="eqp-ativo"><span></span></label>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-eqp-salvar">Criar equipe</button>
+        <button class="btn btn-secondary" id="btn-eqp-novo">Novo / Limpar</button>
+      </div>
+      <div class="form-msg" id="msg-eqp"></div>
+    </div>
+
+    <!-- Solicitações de acesso (somente leitura) -->
+    <div class="card">
+      <div class="aba-titulo">Solicitações de acesso</div>
+      <p class="muted">
+        Somente leitura. A decisão é feita pelos botões <b>Aprovar / Negar</b>
+        enviados por e-mail aos autorizadores.
+      </p>
+      <div class="table-wrapper">
+        <table class="grid grid-compact" id="tbl-solicitacoes"><thead></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
 </main>
 
+<!-- ====== TELA DE LOGIN / SOLICITAR ACESSO (gate) ====== -->
+<div id="tela-login" class="sco-login-overlay">
+  <div class="sco-login-card">
+    <div class="sco-login-brand">
+      <img src="assets/logo.png" alt="Alvo Card" class="sco-login-logo">
+      <div><b class="sco-login-titulo">SCO</b><span class="muted">Controle Operacional</span></div>
+    </div>
+
+    <div id="sco-form-login">
+      <div class="field"><label>E-mail</label><input type="email" id="sco-email" autocomplete="username"></div>
+      <div class="field"><label>Senha</label><input type="password" id="sco-senha" autocomplete="current-password"></div>
+      <div class="form-actions"><button class="btn btn-primary" id="btn-sco-entrar" type="button">Entrar</button></div>
+      <div class="form-msg" id="msg-sco-login"></div>
+      <p class="muted">Precisa de acesso? <a href="#" id="link-sco-solicitar">Solicitar acesso</a></p>
+    </div>
+
+    <div id="sco-form-solicitar" hidden>
+      <div class="aba-titulo">Solicitar acesso</div>
+      <div class="field"><label>Nome</label><input id="sco-sol-nome"></div>
+      <div class="field"><label>E-mail</label><input type="email" id="sco-sol-email"></div>
+      <div class="field"><label>Perfil</label>
+        <select id="sco-sol-perfil"><option>OPERADOR</option><option>LEITOR</option><option>GESTOR</option></select>
+      </div>
+      <div class="form-actions"><button class="btn btn-primary" id="btn-sco-solicitar" type="button">Enviar solicitação</button></div>
+      <div class="form-msg" id="msg-sco-solicitar"></div>
+      <p class="muted">Um autorizador aprova por e-mail. <a href="#" id="link-sco-voltar-login">Voltar ao login</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
 <script src="js/api.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
@@ -1032,6 +1156,8 @@
 <script src="js/responsaveis.js"></script>
 <script src="js/remessas.js"></script>
 <script src="js/remessa_convenios.js"></script>
+<script src="js/usuarios.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>
 

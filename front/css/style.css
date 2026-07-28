@@ -306,6 +306,17 @@ table.grid tbody tr.selected td:first-child{box-shadow:inset 3px 0 0 var(--brand
 /* Chips clicáveis (flag on/off) — ex.: Modelo de averbação da Remessa. */
 .chips-toggle{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
 .chips-toggle.is-locked{opacity:.55; pointer-events:none}
+
+/* -------- Login / gate de acesso -------- */
+.sco-login-overlay{position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; background:var(--bg)}
+.sco-login-overlay[hidden]{display:none}
+.sco-login-card{width:100%; max-width:360px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; box-shadow:var(--shadow)}
+.sco-login-brand{display:flex; align-items:center; gap:12px; margin-bottom:22px}
+.sco-login-logo{width:44px; height:44px; object-fit:contain}
+.sco-login-titulo{display:block; font-size:20px; font-weight:700; color:var(--text); letter-spacing:.5px}
+.sco-login-card .field{margin-bottom:12px}
+.sco-usuario-barra{display:inline-flex; align-items:center; gap:10px; margin-right:6px}
+.sco-usuario-barra[hidden]{display:none}
 .chip-toggle{
   cursor:pointer; padding:6px 14px; border-radius:999px;
   font-size:12px; font-weight:700; user-select:none;

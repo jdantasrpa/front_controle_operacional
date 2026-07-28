@@ -8,6 +8,9 @@ uvicorn[standard]
 # Janela nativa do painel (app_desktop.py)
 pywebview
 
+# Criptografia de aplicação (AES-256-GCM) dos dados no Supabase (api/cripto.py)
+cryptography
+
 # Qualidade
 blue
 isort

@@ -37,9 +37,8 @@ TAMANHO_SENHA_SORTEADA = 16
 COLUNAS_INSERT = (
     'nome',
     'email',
-    'login',
-    'senha_hash',
     'perfil',
+    'senha_hash',
     'status',
     'senha_provisoria',
 )
@@ -101,9 +100,9 @@ def montar_insert(registro: Mapping[str, Any]) -> str:
     )
 
     return (
-        f'insert into public.usuarios ({colunas})\n'
+        f'insert into public.tb_usuario ({colunas})\n'
         f'values ({valores})\n'
-        f'on conflict (login) do nothing;'
+        f'on conflict (email) do nothing;'
     )
 
 

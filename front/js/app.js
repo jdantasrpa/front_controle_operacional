@@ -70,6 +70,7 @@ const PARENTE = {
   responsaveis: 'conciliacao', remessas: 'conciliacao',
   gestao: 'modulos', convenios: 'gestao', convenio: 'convenios',
   originadoras: 'gestao',
+  usuarios: 'modulos',
 };
 const BREADCRUMB = {
   modulos: 'Módulos',
@@ -85,6 +86,7 @@ const BREADCRUMB = {
   convenios: 'Módulos › Gestão de Convênios › Convênios',
   convenio: 'Módulos › Gestão de Convênios › Convênios › Convênio',
   originadoras: 'Módulos › Gestão de Convênios › Originadoras',
+  usuarios: 'Módulos › Segurança › Gestão de Usuários',
 };
 
 let paginaAtual = 'modulos';
@@ -109,6 +111,9 @@ function navegar(page) {
   }
   if (page === 'remessas' && typeof aoEntrarNasRemessas === 'function') {
     aoEntrarNasRemessas();
+  }
+  if (page === 'usuarios' && typeof aoEntrarNaGestaoUsuarios === 'function') {
+    aoEntrarNaGestaoUsuarios();
   }
 }
 

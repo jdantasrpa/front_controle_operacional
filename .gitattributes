@@ -1,0 +1,35 @@
+# ============================================================
+# Normalização de fim de linha do SCO.
+# Todo arquivo de texto é gravado com LF no repositório e entregue
+# com LF no working tree — isso silencia o aviso "LF will be replaced
+# by CRLF" e mantém o histórico consistente entre Windows/Linux.
+# ============================================================
+
+# Detecta texto automaticamente e força LF (repo e checkout).
+* text=auto eol=lf
+
+# --- Tipos de texto explícitos (garantia) ---
+*.py     text eol=lf
+*.js     text eol=lf
+*.ts     text eol=lf
+*.sql    text eol=lf
+*.html   text eol=lf
+*.css    text eol=lf
+*.md     text eol=lf
+*.json   text eol=lf
+*.txt    text eol=lf
+*.drawio text eol=lf
+*.svg    text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+
+# --- Binários (nunca converter fim de linha) ---
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pdf    binary
+*.xlsx   binary
+*.xls    binary
+*.zip    binary

@@ -1,0 +1,15 @@
+[tool.blue]
+line-length = 79
+# O blue instalado (fork do black 22.x) só reconhece até py310; a sintaxe
+# gerada é compatível com o Python 3.13 do venv.
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = 79
+known_first_party = ["api", "config", "core", "domain", "services", "repositories", "database", "integrations", "rpa", "workers", "utils"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

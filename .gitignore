@@ -1,0 +1,37 @@
+# ===== Python =====
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# ===== Dados e bancos (NÃO versionar — dados reais/produção) =====
+banco/
+*.db
+*.sqlite
+*.sqlite3
+*.backup
+*.backup_*
+
+# ===== Configuração local (caminhos de rede / ambiente) =====
+config_projeto.ini
+Config.ini
+*.ini
+
+# ===== Segredos / credenciais =====
+*.dat
+*.env
+.env
+*.key
+*.pem
+*.pfx
+
+# ===== Logs e temporários =====
+*.log
+logs/
+*.tmp
+
+# ===== Sistema =====
+.DS_Store
+Thumbs.db

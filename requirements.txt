@@ -1,0 +1,15 @@
+gradio
+watchfiles
+
+# Painel Controle Operacional (front + API sobre o banco de arquivos)
+fastapi
+uvicorn[standard]
+
+# Janela nativa do painel (app_desktop.py)
+pywebview
+
+# Qualidade
+blue
+isort
+pytest
+httpx

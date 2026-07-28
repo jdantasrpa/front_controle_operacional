@@ -1,0 +1,61 @@
+	
+#########################################################################################
+Aba de dados - Convenio
+#########################################################################################
+
+Mês Referência = Mês Referência (folha)
+
+Nome do Convênio
+CNPJ
+Número do Convênio
+Originador
+Vencimento
+Status -
+	*Conciliado
+	*Conciliado (Parcial)
+	*Pendente
+Motivo
+	-Falta de repasse do convênio
+	-Arquivo retorno não disponível
+	-Outros (dados em observação)
+Observação
+Valor de Remessa
+Valor do retorno
+Valor Repasse
+Calculo (Inadimplencia)  | Valor do retorno - Valor de Remessa
+
+
+#########################################################################################
+Aba de contato - Convenio
+#########################################################################################
+
+Area
+Nome completo
+E-mail
+Tel/cel
+Status
+Observação
+
+#########################################################################################
+Aba de Particularidade - Convenio
+#########################################################################################
+
+Rubrica (Produto)
+Modelo de averbação:
+	Parcelado
+	Arquivo remessa
+Retenção 
+	Sim
+		Qual retenção
+		Valor
+		Porcentagem
+	Não
+#########################################################################################
+Aba de Conta de pagamento - Convenio
+#########################################################################################
+
+Banco
+Agencia
+Conta
+Chave pix
+Cnpj

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alvo Card — SCO</title>
+<script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('cofc_tema')||'light')}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      media="print" onload="this.media='all'">
+</head>
+<body>
+
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ============ TOPBAR ============ -->
+<header class="app-topbar">
+  <div class="app-title">
+    <img class="app-logo" src="assets/logo.png" alt="Alvo Card">
+    <div class="app-title-text">
+      <h1>Alvo Card</h1>
+      <small>SCO — Controle Operacional</small>
+    </div>
+    <span class="breadcrumb-pill" id="breadcrumb">Módulos</span>
+  </div>
+  <div class="topbar-actions">
+    <button class="theme-btn" id="btn-tema" type="button" aria-label="Alternar tema">☀️ Claro</button>
+    <button class="btn btn-secondary" id="btn-back" hidden>← Voltar</button>
+  </div>
+</header>
+
+<main class="app-main">
+
+  <div class="alert alert-modo" id="banner-modo" hidden></div>
+
+  <!-- ============ PÁGINA: MÓDULOS ============ -->
+  <section class="page" id="page-modulos">
+    <div class="card">
+      <h2 class="section-title">Módulos</h2>
+      <p class="muted">Selecione um módulo para continuar.</p>
+      <div class="modulos-grid">
+        <button class="btn-modulo" data-goto="conciliacao">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 11 H8 V37 H14"/><path d="M34 11 H40 V37 H34"/><path d="M17 24 H20.5"/><path d="M31 24 H27.5"/><circle cx="24" cy="24" r="3.2" fill="currentColor" stroke="none"/></svg></span>
+          <span>Conciliação</span>
+        </button>
+        <button class="btn-modulo" data-goto="gestao">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="24" r="6"/><circle cx="36" cy="24" r="6"/><path d="M18 24 H30"/><rect x="21.5" y="20.5" width="5" height="7" rx="1.5" fill="currentColor" stroke="none"/></svg></span>
+          <span>Gestão de Convênios</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: CONCILIAÇÃO (submódulos) ============ -->
+  <section class="page" id="page-conciliacao" hidden>
+    <div class="card">
+      <h2 class="section-title">Submódulos de Conciliação</h2>
+      <p class="muted">Acesse as funcionalidades do módulo.</p>
+      <div class="modulos-grid">
+        <button class="btn-modulo" data-goto="sintetico">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7.5" y="7.5" width="14" height="18" rx="3"/><rect x="26.5" y="7.5" width="14" height="10" rx="3"/><rect x="26.5" y="21.5" width="14" height="19" rx="3"/><rect x="7.5" y="29.5" width="14" height="11" rx="3"/></svg></span>
+          <span>Controle Sintético — Convênios</span>
+        </button>
+        <button class="btn-modulo" data-goto="gerencia">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 H40"/><circle cx="18" cy="16" r="3.2" fill="currentColor" stroke="none"/><path d="M8 32 H40"/><circle cx="30" cy="32" r="3.2" fill="currentColor" stroke="none"/></svg></span>
+          <span>Gerência de Convênios</span>
+        </button>
+        <button class="btn-modulo" data-goto="responsaveis">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="16" r="6"/><path d="M8 34 a9 9 0 0 1 18 0"/><rect x="30" y="14" width="11" height="15" rx="2.5"/><path d="M33 20 H38"/><path d="M33 24 H36.5"/></svg></span>
+          <span>Responsáveis pela Conciliação</span>
+        </button>
+        <button class="btn-modulo" data-goto="remessas">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7.5" y="14.5" width="15" height="19" rx="3"/><path d="M11 21 H19"/><path d="M11 25 H17"/><path d="M26 24 H40"/><path d="M35 19 L40 24 L35 29"/></svg></span>
+          <span>Remessas — por convênio</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: GESTÃO DE CONVÊNIOS (submódulos) ============ -->
+  <section class="page" id="page-gestao" hidden>
+    <div class="card">
+      <h2 class="section-title">Submódulos de Gestão de Convênios</h2>
+      <p class="muted">
+        O <b>convênio</b> é o assunto: cada originadora que o opera é uma linha dele,
+        com número, vigência e custo próprios. As originadoras em si são cadastradas
+        no submódulo ao lado.
+      </p>
+      <div class="modulos-grid">
+        <button class="btn-modulo" data-goto="convenios">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="24" r="6"/><circle cx="36" cy="24" r="6"/><path d="M18 24 H30"/><rect x="21.5" y="20.5" width="5" height="7" rx="1.5" fill="currentColor" stroke="none"/></svg></span>
+          <span>Convênios — originadoras e custos</span>
+        </button>
+        <button class="btn-modulo" data-goto="originadoras">
+          <span class="btn-modulo-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="6" fill="currentColor" stroke="none"/><path d="M24 6 V13"/><path d="M24 35 V42"/><path d="M6 24 H13"/><path d="M35 24 H42"/></svg></span>
+          <span>Originadoras</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: CONVÊNIOS (lista) ============ -->
+  <section class="page" id="page-convenios" hidden>
+    <div class="card">
+      <h2 class="section-title">Convênios</h2>
+      <p class="muted">
+        Um convênio é identificado pelo <b>CNPJ</b> — o número muda de originadora
+        para originadora. A competência define quais vínculos aparecem como
+        <b>vigentes</b> e qual custo está valendo.
+      </p>
+
+      <div class="filtros-grid">
+        <div class="field">
+          <label for="cv-competencia">Competência de referência</label>
+          <input type="month" id="cv-competencia">
+        </div>
+        <div class="field">
+          <label for="cv-vigencia">Situação na competência</label>
+          <select id="cv-vigencia">
+            <option value="todos">Todos</option>
+            <option value="vigentes">Só com originadora vigente</option>
+            <option value="sem">Sem originadora vigente</option>
+          </select>
+        </div>
+        <div class="field field-busca">
+          <label for="cv-busca">Busca</label>
+          <input type="text" id="cv-busca" placeholder="Nome, CNPJ, originadora ou número...">
+        </div>
+      </div>
+      <div class="sintetico-actions">
+        <button class="btn btn-primary" id="btn-cv-buscar">🔎 Pesquisar</button>
+        <button class="btn btn-secondary" id="btn-cv-novo">+ Novo convênio</button>
+      </div>
+      <p class="muted venc-sub">
+        A <b>geração de competência</b> saiu daqui: quem decide o que entra na
+        conciliação é a mesa. Ela agora vive em
+        <b>Conciliação › Gerência de Convênios</b>.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="alert-invert" id="cv-resumo">0 convênio(s)</div>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-convenios"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="tbl-hint">💡 Clique na linha para abrir o convênio e gerir as originadoras e os custos.</div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: CONVÊNIO (detalhe) ============ -->
+  <section class="page" id="page-convenio" hidden>
+    <div class="card">
+      <h2 class="section-title">Convênio</h2>
+      <div class="alert" id="convenio-header">Selecione um convênio na lista.</div>
+      <div class="form-grid form-grid-2">
+        <div class="field"><label>CNPJ *</label><input data-c="cnpj_convenio" id="cvd-cnpj"></div>
+        <div class="field"><label>Nome do convênio *</label><input data-c="nome_convenio"></div>
+        <div class="field"><label>Averbadora</label><input data-c="averbadora" placeholder="Ex.: Zetra"></div>
+        <div class="field"><label>Status</label>
+          <select data-c="status"><option>ATIVO</option><option>INATIVO</option></select>
+        </div>
+        <div class="field"><label>Status de produção</label>
+          <select data-c="status_producao">
+            <option value="">(não informado)</option>
+            <option>Em produção</option><option>Em implantação</option>
+            <option>Suspenso</option><option>Encerrado</option>
+          </select>
+        </div>
+        <div class="field"><label>Gestora de margem</label><input data-c="gestora_margem" placeholder="Ex.: Zetra, Neoconsig, Consignet"></div>
+        <div class="field"><label>Link de acesso (gestora)</label><input data-c="link_gestora" id="cvd-link-gestora" placeholder="https://..."></div>
+        <div class="field field-wide"><label>Observação</label><textarea data-c="observacao" rows="2"></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-salvar-convenio">Salvar convênio</button>
+        <button class="btn btn-secondary" id="btn-acessar-gestora">Acessar gestora</button>
+      </div>
+      <div class="form-msg" id="msg-convenio"></div>
+    </div>
+
+    <!-- Originadoras que operam este convênio -->
+    <div class="card">
+      <div class="aba-titulo">Originadoras que operam este convênio</div>
+      <p class="muted venc-sub">
+        Cada linha é um vínculo: o número do convênio <b>naquela originadora</b> e a
+        vigência que o coloca (ou tira) da conciliação mensal.
+      </p>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-vinculos"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="tbl-hint">💡 Clique na linha para editar o vínculo e cadastrar o custo dele.</div>
+    </div>
+
+    <div class="card">
+      <div class="aba-titulo" id="titulo-form-vinculo">Adicionar originadora ao convênio</div>
+      <div class="form-grid">
+        <div class="field"><label>Originadora *</label><select data-v="originador" id="vin-originador"></select></div>
+        <div class="field"><label>N° do convênio (automático)</label><input data-v="numero_convenio" id="vin-numero" class="campo-chave" readonly placeholder="gerado ao salvar"></div>
+        <div class="field"><label>Vigente a partir de *</label><input type="month" data-v="competencia_inicio"></div>
+        <div class="field"><label>Encerrado em (vazio = vigente)</label><input type="month" data-v="competencia_fim"></div>
+        <div class="field"><label>Status</label>
+          <select data-v="status"><option>ATIVO</option><option>INATIVO</option></select>
+        </div>
+        <div class="field field-wide"><label>Observação</label><textarea data-v="observacao" rows="2"></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-salvar-vinculo">Salvar vínculo</button>
+        <button class="btn btn-secondary" id="btn-novo-vinculo">Novo / Limpar</button>
+        <button class="btn btn-ghost" id="btn-excluir-vinculo" hidden>Excluir vínculo</button>
+      </div>
+      <div class="form-msg" id="msg-vinculo"></div>
+    </div>
+
+    <!-- O controle de vencimentos/competências saiu da Gestão: agora é da
+         Conciliação, em Conciliação › Gerência de Convênios. A Gestão fica
+         só com o cadastro do convênio (originadoras, vigência e custo). -->
+
+    <!-- Custo do vínculo selecionado -->
+    <div class="card" id="card-custo" hidden>
+      <div class="aba-titulo" id="titulo-custo">Custo do vínculo</div>
+      <p class="muted venc-sub">
+        Vale <b>um custo por competência</b>. Ao colocar um novo em vigor, o anterior
+        não é apagado: fica encerrado na competência anterior, para que a conciliação
+        de um mês passado continue sabendo qual custo valia nele.
+      </p>
+
+      <div class="form-grid">
+        <div class="field"><label>Método de custo *</label>
+          <select data-k="metodo" id="custo-metodo">
+            <option value="PERCENTUAL">Percentual sobre valor</option>
+            <option value="FIXO_MENSAL">Valor fixo mensal</option>
+            <option value="POR_CONTRATO">Valor por contrato/operação</option>
+            <option value="FAIXA">Faixa / escalonado</option>
+          </select>
+        </div>
+        <div class="field"><label>Vigente a partir de *</label><input type="month" data-k="competencia_inicio"></div>
+
+        <div class="field custo-campo custo-PERCENTUAL"><label>Alíquota (%)</label><input data-k="aliquota_percentual" placeholder="Ex.: 2,5"></div>
+        <div class="field custo-campo custo-PERCENTUAL"><label>Base de cálculo</label>
+          <select data-k="base_calculo">
+            <option value="VALOR_RETORNO">Valor retorno (descontado em folha)</option>
+            <option value="VALOR_REMESSA">Valor remessa (enviado)</option>
+            <option value="VALOR_REPASSE">Valor repasse (recebido do convênio)</option>
+          </select>
+        </div>
+        <div class="field custo-campo custo-FIXO_MENSAL"><label>Valor fixo mensal (R$)</label><input data-k="valor_fixo" placeholder="Ex.: 1500,00"></div>
+        <div class="field custo-campo custo-POR_CONTRATO"><label>Valor por contrato (R$)</label><input data-k="valor_unitario" placeholder="Ex.: 3,50"></div>
+        <div class="field custo-campo custo-FAIXA"><label>Faixa definida por</label>
+          <select data-k="criterio_faixa">
+            <option value="QUANTIDADE">Quantidade de contratos</option>
+            <option value="VALOR">Valor da competência</option>
+          </select>
+        </div>
+
+        <div class="field field-wide"><label>Observação</label><textarea data-k="observacao" rows="2"></textarea></div>
+      </div>
+
+      <!-- Tabela de faixas (só no método FAIXA) -->
+      <div class="custo-campo custo-FAIXA" id="bloco-faixas">
+        <div class="aba-titulo">Degraus da tabela</div>
+        <div class="table-wrapper">
+          <table class="grid grid-compact" id="tbl-faixas"><thead></thead><tbody></tbody></table>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-secondary" id="btn-add-faixa" type="button">+ Adicionar degrau</button>
+        </div>
+        <div class="tbl-hint">💡 Deixe <b>Até</b> em <b>0</b> no último degrau: ele absorve tudo acima do anterior.</div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-salvar-custo">Colocar custo em vigor</button>
+      </div>
+      <div class="form-msg" id="msg-custo"></div>
+
+      <div class="aba-titulo">Histórico de custo</div>
+      <div class="tbl-hint">💡 Clique num custo para <b>ativar/desativar</b>. Custo inativo não é aplicado no cálculo (o histórico é preservado).</div>
+      <div class="table-wrapper">
+        <table class="grid grid-compact" id="tbl-custos"><thead></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: ORIGINADORAS ============ -->
+  <section class="page" id="page-originadoras" hidden>
+    <div class="card">
+      <h2 class="section-title">Originadoras</h2>
+      <p class="muted">
+        Cadastro de cada originadora. Os convênios são ligados a elas no submódulo
+        <b>Convênios</b>.
+      </p>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-originadoras"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="tbl-hint">💡 Clique na linha para editar. Originadora com convênio vinculado não é excluída — inative-a.</div>
+    </div>
+
+    <div class="card">
+      <div class="aba-titulo" id="titulo-form-originadora">Cadastro de originadora (criar/editar)</div>
+      <div class="form-grid">
+        <div class="field"><label>Nome *</label><input data-o="nome" id="org-nome" placeholder="Ex.: Alvo Card"></div>
+        <div class="field"><label>Código *</label><input data-o="codigo" placeholder="Ex.: ALV" maxlength="4"></div>
+        <div class="field"><label>CNPJ</label><input data-o="cnpj"></div>
+        <div class="field"><label>Status</label>
+          <select data-o="status"><option>ATIVO</option><option>INATIVO</option></select>
+        </div>
+        <div class="field field-wide"><label>Observação</label><textarea data-o="observacao" rows="2"></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-salvar-originadora">Salvar originadora</button>
+        <button class="btn btn-secondary" id="btn-novo-originadora">Novo / Limpar</button>
+        <button class="btn btn-ghost" id="btn-excluir-originadora" hidden>Excluir</button>
+      </div>
+      <div class="form-msg" id="msg-originadora"></div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: CONTROLE SINTÉTICO ============ -->
+  <section class="page" id="page-sintetico" hidden>
+    <div class="card">
+      <h2 class="section-title">Controle Sintético</h2>
+      <p class="muted">O controle é <b>mensal por originadora</b>: escolha a competência e a originadora para listar os convênios.</p>
+
+      <details class="accordion" open>
+        <summary>Filtros</summary>
+        <div class="filtros-grid">
+          <div class="field">
+            <label for="f-mes">Mês (referência) *</label>
+            <select id="f-mes"></select>
+          </div>
+          <div class="field">
+            <label for="f-originador">Originadora *</label>
+            <select id="f-originador"></select>
+          </div>
+          <div class="field">
+            <label for="f-status">Status</label>
+            <select id="f-status"></select>
+          </div>
+          <div class="field">
+            <label for="f-motivo">Motivo</label>
+            <select id="f-motivo"></select>
+          </div>
+          <div class="field">
+            <label for="f-venc">Data vencimento</label>
+            <input type="text" id="f-venc" placeholder="dd/mm/aaaa">
+          </div>
+          <div class="field">
+            <label for="f-sla">Data SLA</label>
+            <input type="text" id="f-sla" placeholder="dd/mm/aaaa">
+          </div>
+          <div class="field">
+            <label for="f-corte">Data corte</label>
+            <input type="text" id="f-corte" placeholder="dd/mm/aaaa">
+          </div>
+        </div>
+        <div class="field field-busca">
+          <label for="f-busca">Busca</label>
+          <input type="text" id="f-busca" placeholder="Nome, CNPJ, número do convênio, motivo...">
+        </div>
+        <div class="sintetico-actions">
+          <button class="btn btn-primary" id="btn-filtrar">🔎 Pesquisar</button>
+          <button class="btn btn-secondary" id="btn-abrir">Abrir ▸</button>
+          <button class="btn btn-ghost" id="btn-limpar">Limpar</button>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="alert-invert" id="sintetico-resumo">0 registro(s) encontrado(s)</div>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-sintetico">
+          <thead>
+            <tr>
+              <th>Mês Ref.</th>
+              <th>Originador</th>
+              <th>N° Convênio</th>
+              <th>Nome convênio</th>
+              <th>Status Conciliação</th>
+              <th>VCTO convênio</th>
+              <th>SLA Conciliação</th>
+              <th>Data corte</th>
+              <th>Inadimp</th>
+              <th>% Inadimp</th>
+            </tr>
+          </thead>
+          <tbody id="tbl-sintetico-body"></tbody>
+        </table>
+        <p class="empty-state" id="sintetico-empty" hidden>Selecione a competência e a originadora e clique em Pesquisar.</p>
+      </div>
+      <div class="tbl-hint">💡 Selecione uma linha e clique em <b>Abrir</b> (ou duplo clique).</div>
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: CONTROLE ANALÍTICO ============ -->
+  <section class="page" id="page-analitico" hidden>
+    <div class="card">
+      <h2 class="section-title">Controle Analítico</h2>
+      <div class="alert" id="analitico-header">Selecione um convênio no Sintético para ver o detalhe.</div>
+    </div>
+
+    <!-- Dashboard de vencimentários: resumo no formato do Sintético.
+         Uma linha por competência de vencimento do convênio; clicar na
+         linha abre aquela competência sem voltar ao Sintético. -->
+    <div class="card venc-bar">
+      <div class="venc-topo">
+        <div>
+          <div class="aba-titulo">Vencimentários do convênio (competências de vencimento)</div>
+          <p class="muted venc-sub">Clique na linha para abrir a competência que quiser trabalhar. Status e cenário se editam na aba Conciliação.</p>
+        </div>
+      </div>
+
+      <div class="table-wrapper table-wrapper-scroll" id="venc-scroll">
+        <table class="grid grid-compact" id="tbl-venc"><thead></thead><tbody></tbody></table>
+      </div>
+
+      <div class="venc-legenda">
+        <div><span class="scope-badge scope-venc">Por vencimentário</span> <b>Conciliação, Financeiro e Cobrança</b> mudam conforme a competência selecionada acima.</div>
+        <div><span class="scope-badge scope-shared">Compartilhado</span> <b>Secretaria, Particularidade, Conta e Contato</b> são regra do convênio e <b>valem para todas as competências</b>.</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tabs-nav" id="analitico-tabs">
+        <button class="tab-btn active" data-tab="conciliacao" data-scope="venc">Conciliação <i class="scope-dot scope-venc" title="Por vencimentário"></i></button>
+        <button class="tab-btn" data-tab="particularidade" data-scope="shared">Particularidade <i class="scope-dot scope-shared" title="Compartilhado — repete"></i></button>
+        <button class="tab-btn" data-tab="financeiro" data-scope="venc">Financeiro <i class="scope-dot scope-venc" title="Por vencimentário"></i></button>
+        <button class="tab-btn" data-tab="conta" data-scope="shared">Conta <i class="scope-dot scope-shared" title="Compartilhado — repete"></i></button>
+        <button class="tab-btn" data-tab="secretaria" data-scope="shared">Secretaria <i class="scope-dot scope-shared" title="Compartilhado — repete"></i></button>
+        <button class="tab-btn" data-tab="contato" data-scope="shared">Contato <i class="scope-dot scope-shared" title="Compartilhado — repete"></i></button>
+        <button class="tab-btn" data-tab="cobranca" data-scope="venc">Cobrança <i class="scope-dot scope-venc" title="Por vencimentário"></i></button>
+      </div>
+
+      <!-- Aba Conciliação -->
+      <div class="tab-panel active" id="tab-conciliacao">
+        <div class="scope-note scope-venc">📌 <b>Por vencimentário</b> — dados do vencimentário selecionado: <b class="venc-atual">—</b></div>
+
+        <div class="card" id="card-secretarias-devedoras" hidden>
+          <div class="aba-titulo">Secretarias devedoras — sem repasse no Financeiro</div>
+          <div class="chips" id="lista-secretarias-devedoras"></div>
+          <div class="tbl-hint">Cadastre as secretarias na aba <b>Secretaria</b> e aponte a secretaria em cada lançamento do <b>Financeiro</b>.</div>
+        </div>
+
+        <div class="card">
+          <div class="aba-titulo">Conciliação do Convênio (edição controlada por campo)</div>
+          <div class="form-grid form-grid-2" id="form-conciliacao"></div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-salvar-conciliacao">Salvar dados</button>
+          </div>
+          <div class="form-msg" id="msg-conciliacao"></div>
+        </div>
+      </div>
+
+      <!-- Aba Particularidade -->
+      <div class="tab-panel" id="tab-particularidade" hidden>
+        <div class="scope-note scope-shared">🔁 <b>Compartilhado</b> — regra do convênio: estes dados <b>valem para todas as competências</b>.</div>
+        <div class="card">
+          <div class="aba-titulo">Particularidades do Convênio</div>
+          <div class="table-wrapper">
+            <table class="grid" id="tbl-particularidade"><thead></thead><tbody></tbody></table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="aba-titulo">Formulário de particularidade (criar/editar)</div>
+          <div class="form-grid">
+            <div class="field"><label>Rubrica / Produto</label><input data-f="rubrica_produto"></div>
+            <div class="field"><label>Modelo de averbação</label>
+              <select data-f="modelo_de_averbacao">
+                <option>MARGEM</option><option>FOLHA</option><option>BOLETO</option><option>OUTRO</option>
+              </select>
+            </div>
+            <div class="field"><label>Status</label>
+              <select data-f="status_particularidade"><option>ATIVA</option><option>INATIVA</option></select>
+            </div>
+            <div class="field"><label>Retenção</label>
+              <select data-f="retencao" id="part-retencao"><option>NÃO</option><option>SIM</option></select>
+            </div>
+            <div class="field part-retencao-campo" hidden><label>Valor</label><input data-f="retencao_valor"></div>
+            <div class="field part-retencao-campo" hidden><label>Porcentagem</label><input data-f="retencao_percent"></div>
+            <div class="field field-wide"><label>Observação</label><textarea data-f="observacao" rows="3"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-salvar-part">Salvar particularidade</button>
+            <button class="btn btn-secondary" id="btn-novo-part">Novo / Limpar</button>
+          </div>
+          <div class="form-msg" id="msg-part"></div>
+        </div>
+      </div>
+
+      <!-- Aba Financeiro -->
+      <div class="tab-panel" id="tab-financeiro" hidden>
+        <div class="scope-note scope-venc">📌 <b>Por vencimentário</b> — dados do vencimentário selecionado: <b class="venc-atual">—</b></div>
+        <div class="card">
+          <div class="aba-titulo">Repasses financeiros do Convênio</div>
+          <div class="table-wrapper">
+            <table class="grid" id="tbl-financeiro"><thead></thead><tbody></tbody></table>
+          </div>
+          <div class="tbl-hint">💡 A soma de <b>valor recebido</b> alimenta o <b>Valor repasse</b> da aba Conciliação.</div>
+        </div>
+        <div class="card">
+          <div class="aba-titulo" id="titulo-form-financeiro">Formulário de repasse (criar/editar)</div>
+          <p class="muted venc-sub">
+            Informe a <b>data de recebimento</b> e o <b>valor recebido</b>. O <b>custo</b> é
+            aplicado pela regra do convênio (Gestão) e o <b>status</b> sai automático da
+            diferença — atualizam ao digitar. Se o custo for por contrato/faixa, informe a
+            <b>quantidade recebida</b>.
+          </p>
+          <div class="form-grid">
+            <div class="field"><label>Secretaria repassada</label><select data-f="secretaria" id="fin-secretaria"></select></div>
+            <div class="field"><label>Data de recebimento</label><input data-f="data_efetiva" id="fin-data" placeholder="dd/mm/aaaa"></div>
+            <div class="field"><label>Valor recebido (R$)</label><input data-f="valor_recebido" id="fin-recebido" placeholder="0,00"></div>
+            <div class="field" id="fin-quantidade-campo" hidden><label>Quantidade recebida</label><input data-f="quantidade" id="fin-quantidade" placeholder="Ex.: 120"></div>
+            <div class="field"><label>Custo aplicado</label><input data-f="custo" id="fin-custo" class="campo-chave" disabled></div>
+            <div class="field"><label>Status (automático)</label><input data-f="status_financeiro" id="fin-status" class="campo-chave" disabled></div>
+            <div class="field"><label>Divergência (devendo)</label><input data-f="devendo" id="fin-devendo" class="campo-chave" disabled></div>
+            <div class="field field-wide"><label>Observação</label><textarea data-f="observacao" rows="3"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-salvar-fin">Salvar repasse</button>
+            <button class="btn btn-secondary" id="btn-novo-fin">Novo / Limpar</button>
+          </div>
+          <div class="form-msg" id="msg-fin"></div>
+        </div>
+      </div>
+
+      <!-- Aba Conta -->
+      <div class="tab-panel" id="tab-conta" hidden>
+        <div class="scope-note scope-shared">🔁 <b>Compartilhado</b> — regra do convênio: estes dados <b>valem para todas as competências</b>.</div>
+        <div class="card">
+          <div class="aba-titulo">Contas do Convênio</div>
+          <div class="table-wrapper">
+            <table class="grid" id="tbl-conta"><thead></thead><tbody></tbody></table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="aba-titulo">Formulário de conta (criar/editar)</div>
+          <div class="form-grid">
+            <div class="field"><label>Banco</label><input data-f="banco"></div>
+            <div class="field"><label>Agência</label><input data-f="agencia"></div>
+            <div class="field"><label>Conta</label><input data-f="conta"></div>
+            <div class="field"><label>Chave Pix</label><input data-f="chave_pix"></div>
+            <div class="field"><label>CNPJ</label><input data-f="cnpj"></div>
+            <div class="field"><label>Status da conta</label>
+              <select data-f="status_conta"><option>ATIVA</option><option>INATIVA</option><option>EM VALIDAÇÃO</option></select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-salvar-conta">Salvar conta</button>
+            <button class="btn btn-secondary" id="btn-novo-conta">Novo / Limpar</button>
+          </div>
+          <div class="form-msg" id="msg-conta"></div>
+        </div>
+      </div>
+
+      <!-- Aba Secretaria -->
+      <div class="tab-panel" id="tab-secretaria" hidden>
+        <div class="scope-note scope-shared">🔁 <b>Compartilhado</b> — regra do convênio: estes dados <b>valem para todas as competências</b>.</div>
+        <div class="card">
+          <div class="aba-titulo">Secretarias do Convênio</div>
+          <div class="table-wrapper">
+            <table class="grid" id="tbl-secretaria"><thead></thead><tbody></tbody></table>
+          </div>
+          <div class="tbl-hint">💡 Secretaria <b>ATIVA</b> sem repasse lançado no Financeiro do vencimentário aparece como <b>devedora</b> na aba Conciliação.</div>
+        </div>
+        <div class="card">
+          <div class="aba-titulo">Formulário de secretaria (criar/editar)</div>
+          <div class="form-grid">
+            <div class="field"><label>Nome *</label><input data-f="nome" placeholder="Ex.: Secretaria de Educação"></div>
+            <div class="field"><label>Código / sigla</label><input data-f="codigo" placeholder="Ex.: SEDUC"></div>
+            <div class="field"><label>Status</label>
+              <select data-f="status_secretaria"><option>ATIVA</option><option>INATIVA</option></select>
+            </div>
+            <div class="field field-wide"><label>Observação</label><textarea data-f="observacao" rows="3"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-salvar-secretaria">Salvar secretaria</button>
+            <button class="btn btn-secondary" id="btn-novo-secretaria">Novo / Limpar</button>
+          </div>
+          <div class="form-msg" id="msg-secretaria"></div>
+        </div>
+      </div>
+
+      <!-- Aba Contato -->
+      <div class="tab-panel" id="tab-contato" hidden>
+        <div class="scope-note scope-shared">🔁 <b>Compartilhado</b> — regra do convênio: estes dados <b>valem para todas as competências</b>.</div>
+        <div class="card">
+          <div class="aba-titulo">Contatos do Convênio</div>
+          <div class="table-wrapper">
+            <table class="grid" id="tbl-contato"><thead></thead><tbody></tbody></table>
+          </div>
+          <div class="tbl-hint">💡 Cada secretaria tem seu contato. Quem responde por todas fica como <b>Todas as secretarias</b>.</div>
+        </div>
+        <div class="card">
+          <div class="aba-titulo">Formulário de contato (criar/editar)</div>
+          <div class="form-grid">
+            <div class="field"><label>Secretaria</label><select data-f="secretaria" id="contato-secretaria"></select></div>
+            <div class="field"><label>Área</label><input data-f="area" placeholder="Ex.: Operações / Financeiro / TI"></div>
+            <div class="field"><label>Status</label>
+              <select data-f="status"><option>ATIVO</option><option>INATIVO</option></select>
+            </div>
+            <div class="field"><label>Nome *</label><input data-f="nome" placeholder="Obrigatório"></div>
+            <div class="field"><label>E-mail</label><input data-f="email"></div>
+            <div class="field"><label>Telefone</label><input data-f="telefone"></div>
+            <div class="field field-wide"><label>Observação</label><textarea data-f="observacao" rows="3"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-salvar-contato">Salvar contato</button>
+            <button class="btn btn-secondary" id="btn-novo-contato">Novo / Limpar</button>
+          </div>
+          <div class="form-msg" id="msg-contato"></div>
+        </div>
+      </div>
+
+      <!-- Aba Cobrança -->
+      <div class="tab-panel" id="tab-cobranca" hidden>
+        <div class="scope-note scope-venc">📌 <b>Por vencimentário</b> — dados do vencimentário selecionado: <b class="venc-atual">—</b></div>
+        <div class="card">
+          <div class="aba-titulo" id="titulo-cobranca-hist">Histórico de tentativas de cobrança</div>
+          <div class="table-wrapper">
+            <table class="grid" id="tbl-cobranca-hist"><thead></thead><tbody></tbody></table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="aba-titulo">Registrar tentativa (o contato vem do cadastro da aba Contato)</div>
+          <div class="form-grid">
+            <div class="field"><label>Contato acionado *</label><select data-f="contato_nome" id="cob-contato"></select></div>
+            <div class="field"><label>Data/hora</label><input data-f="data_hora" id="cob-data" placeholder="dd/mm/aaaa hh:mm"></div>
+            <div class="field"><label>Canal</label>
+              <select data-f="canal"><option>telefone</option><option>whatsapp</option><option>email</option><option>presencial</option></select>
+            </div>
+            <div class="field"><label>Resultado</label>
+              <select data-f="resultado">
+                <option value="sem_resposta">Sem resposta</option>
+                <option value="contato_efetivo">Contato efetivo</option>
+                <option value="retornar">Pediu para retornar</option>
+                <option value="recusado">Recusou negociação</option>
+                <option value="regularizou">Regularizou / vai pagar</option>
+              </select>
+            </div>
+            <div class="field field-wide"><label>Observação</label><textarea data-f="observacao" rows="3"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btn-registrar-cobranca">Registrar tentativa</button>
+          </div>
+          <div class="form-msg" id="msg-cobranca"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ PÁGINA: GERÊNCIA DE CONVÊNIOS (Conciliação) ============ -->
+  <section class="page" id="page-gerencia" hidden>
+    <div class="card">
+      <h2 class="section-title">Gerência de Convênios</h2>
+      <p class="muted">
+        A visão da <b>mesa de conciliação</b>: cada convênio e a originadora que o
+        opera. Aqui a mesa <b>liga/desliga</b> o que acompanha (sem tocar no cadastro
+        da Gestão), registra o <b>primeiro vencimento</b> e <b>gera a competência</b>.
+        Convênio desligado não entra na geração.
+      </p>
+
+      <div class="filtros-grid">
+        <div class="field">
+          <label for="gr-competencia">Competência de referência</label>
+          <input type="month" id="gr-competencia">
+        </div>
+        <div class="field field-busca">
+          <label for="gr-busca">Busca</label>
+          <input type="text" id="gr-busca" placeholder="Convênio, CNPJ, originadora ou número...">
+        </div>
+      </div>
+      <div class="sintetico-actions">
+        <button class="btn btn-primary" id="btn-gr-atualizar">🔄 Atualizar</button>
+        <button class="btn btn-secondary" id="btn-gr-massivo">⚙️ Gerar competência (massivo)</button>
+      </div>
+      <p class="muted venc-sub">
+        <b>Massivo</b> clona o esqueleto do mês anterior (dias, SLA e corte) para a
+        competência de referência em todos os convênios <b>vigentes e ligados</b>,
+        com os valores zerados, e emite a solicitação para a automação do Datacob.
+      </p>
+      <div class="form-msg" id="msg-gerencia"></div>
+    </div>
+
+    <div class="card">
+      <div class="aba-titulo">Originadoras (grupo master)</div>
+      <p class="muted">
+        A originadora agrupa convênios. <b>Desativá-la bloqueia a geração de todos
+        os convênios dela</b> (mesmo os ligados individualmente) — é um interruptor
+        acima do liga/desliga de cada convênio. Use <b>Ver convênios</b> para filtrar
+        a lista abaixo pela originadora.
+      </p>
+      <div class="filtros-grid">
+        <div class="field">
+          <label for="gr-orig-inicio">Período p/ geração — inicial</label>
+          <input type="month" id="gr-orig-inicio">
+        </div>
+        <div class="field">
+          <label for="gr-orig-fim">Período p/ geração — final</label>
+          <input type="month" id="gr-orig-fim">
+        </div>
+      </div>
+      <p class="muted venc-sub">
+        <b>Gerar mês</b> usa a competência de referência acima; <b>Gerar período</b>
+        usa o intervalo definido aqui. Ambos geram todos os convênios ligados e
+        vigentes da originadora.
+      </p>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-gr-originadoras"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="form-msg" id="msg-gerencia-originadora"></div>
+    </div>
+
+    <div class="card">
+      <div class="alert-invert" id="gr-resumo">0 convênio(s)</div>
+      <div class="tbl-hint">💡 Clique num convênio para abrir o detalhe (Dados, Originadora, Competência e Controle).</div>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-gerencia"><thead></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PÁGINA: DETALHE DO CONVÊNIO (Gerência · Conciliação) ====== -->
+  <section class="page" id="page-gerencia-detalhe" hidden>
+    <div class="card">
+      <h2 class="section-title" id="grd-titulo">Convênio</h2>
+      <div class="tabs">
+        <div class="tabs-nav" id="grd-tabs">
+          <button class="tab-btn active" data-gtab="dados">Dados Gerais</button>
+          <button class="tab-btn" data-gtab="originadora">Originadora</button>
+          <button class="tab-btn" data-gtab="competencia">Competência</button>
+          <button class="tab-btn" data-gtab="controle">Controle</button>
+          <button class="tab-btn" data-gtab="remessas">Remessas</button>
+          <button class="tab-btn" data-gtab="responsaveis">Responsáveis</button>
+        </div>
+
+        <!-- Aba Dados Gerais -->
+        <div class="tab-panel active" id="gtab-dados">
+          <div class="card">
+            <div class="aba-titulo">Dados gerais do convênio</div>
+            <div class="form-grid">
+              <div class="field"><label>Convênio</label><div class="ro-valor" id="grd-nome">—</div></div>
+              <div class="field"><label>CNPJ</label><div class="ro-valor" id="grd-cnpj">—</div></div>
+              <div class="field"><label>Cadastrado em</label><div class="ro-valor" id="grd-cadastrado">—</div></div>
+              <div class="field"><label>Vigente na competência</label><div class="ro-valor" id="grd-vigente">—</div></div>
+              <div class="field"><label>Status na Gestão (leitura)</label><div class="ro-valor" id="grd-gestao">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aba Originadora -->
+        <div class="tab-panel" id="gtab-originadora" hidden>
+          <div class="card">
+            <div class="aba-titulo">Originadora que opera este convênio</div>
+            <div class="form-grid">
+              <div class="field"><label>Originadora</label><div class="ro-valor" id="grd-originadora">—</div></div>
+              <div class="field"><label>N° do convênio</label><div class="ro-valor" id="grd-numero">—</div></div>
+              <div class="field"><label>Averbadora</label><div class="ro-valor" id="grd-averbadora">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aba Competência -->
+        <div class="tab-panel" id="gtab-competencia" hidden>
+          <div class="card">
+            <div class="aba-titulo">Gerar competências por período</div>
+            <p class="muted">
+              Gera de uma vez o intervalo escolhido para este convênio: cada mês é
+              clonado do anterior (ou do controle definido). Respeita a vigência e o
+              liga/desliga.
+            </p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="grd-per-inicio">Competência inicial *</label>
+                <input type="month" id="grd-per-inicio">
+              </div>
+              <div class="field">
+                <label for="grd-per-fim">Competência final *</label>
+                <input type="month" id="grd-per-fim">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" id="btn-grd-periodo">Gerar período</button>
+            </div>
+            <div class="form-msg" id="msg-grd-periodo"></div>
+          </div>
+        </div>
+
+        <!-- Aba Controle -->
+        <div class="tab-panel" id="gtab-controle" hidden>
+          <div class="card">
+            <div class="aba-titulo">Controle da conciliação</div>
+            <p class="muted">
+              Estado próprio da mesa (não toca no cadastro da Gestão). O controle de
+              vencimento se <b>replica</b> em toda competência gerada; offset em branco
+              = o Datacob preenche aquela data.
+            </p>
+            <div class="form-grid">
+              <div class="field field-inline">
+                <label for="grd-ativa">Em conciliação</label>
+                <label class="switch"><input type="checkbox" id="grd-ativa"><span></span></label>
+              </div>
+              <div class="field">
+                <label for="grd-dia">Dia de vencimento (1–30)</label>
+                <input type="number" min="1" max="30" step="1" id="grd-dia" placeholder="Ex.: 5">
+              </div>
+              <div class="field">
+                <label for="grd-remessa">Envio remessa (dias antes)</label>
+                <input type="number" min="0" step="1" id="grd-remessa" placeholder="Ex.: 3">
+              </div>
+              <div class="field">
+                <label for="grd-sla">Qtd dias SLA pagamento</label>
+                <input type="number" min="0" step="1" id="grd-sla" placeholder="Ex.: 17">
+              </div>
+              <div class="field">
+                <label for="grd-corte">Corte (dias antes)</label>
+                <input type="number" min="0" step="1" id="grd-corte" placeholder="Ex.: 2">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" id="btn-grd-ctrl-salvar">Salvar controle</button>
+            </div>
+            <div class="form-msg" id="msg-grd-controle"></div>
+          </div>
+        </div>
+
+        <!-- Aba Remessas -->
+        <div class="tab-panel" id="gtab-remessas" hidden>
+          <div class="card">
+            <div class="aba-titulo">Gerenciamento de remessas por vencimento</div>
+            <p class="muted">
+              Acompanhamento do envio de cada vencimento da competência. A <b>regra de
+              envio</b> (dias antes, SLA, corte) vem do <b>Controle</b> e se replica; aqui
+              fica o <b>histórico de envio</b> (situação, data, usuário) com auditoria.
+            </p>
+            <div class="alert-invert">Regra de envio (do Controle): <b id="grd-rem-regra">—</b></div>
+            <div class="filtros-grid">
+              <div class="field">
+                <label for="grd-rem-competencia">Competência</label>
+                <input type="month" id="grd-rem-competencia">
+              </div>
+              <div class="field field-inline">
+                <button class="btn btn-secondary" id="btn-grd-rem-atualizar">🔄 Atualizar</button>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table class="grid" id="tbl-grd-remessas"><thead></thead><tbody></tbody></table>
+            </div>
+            <div class="form-msg" id="msg-grd-remessa"></div>
+          </div>
+        </div>
+
+        <!-- Aba Responsáveis -->
+        <div class="tab-panel" id="gtab-responsaveis" hidden>
+          <div class="card">
+            <div class="aba-titulo">Responsável pela conciliação</div>
+            <p class="muted">
+              O <b>responsável efetivo</b> é calculado: substituição vigente responde no
+              lugar do titular e, passada a data, a carteira volta sozinha; titular
+              desligado deixa o convênio como <b>Usuário Não Cadastrado</b>, disponível
+              até alguém assumir. Colaboradores são cadastrados no submódulo
+              <b>Responsáveis pela Conciliação</b>.
+            </p>
+            <div class="alert-invert">Responsável efetivo: <b id="grd-resp-efetivo">—</b></div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="grd-resp-titular">Titular</label>
+                <select id="grd-resp-titular"></select>
+              </div>
+              <div class="field field-inline">
+                <button class="btn btn-primary" id="btn-grd-resp-titular">Salvar titular</button>
+              </div>
+            </div>
+
+            <div class="aba-titulo">Substituição temporária</div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="grd-resp-substituto">Substituto</label>
+                <select id="grd-resp-substituto"></select>
+              </div>
+              <div class="field">
+                <label for="grd-resp-fim">Até (vazio = aberta)</label>
+                <input type="date" id="grd-resp-fim">
+              </div>
+              <div class="field field-inline">
+                <button class="btn btn-primary" id="btn-grd-resp-sub">Definir substituição</button>
+                <button class="btn btn-secondary" id="btn-grd-resp-sub-fim">Encerrar</button>
+              </div>
+            </div>
+            <div class="form-msg" id="msg-grd-resp"></div>
+
+            <div class="aba-titulo">Histórico</div>
+            <div class="table-wrapper">
+              <table class="grid" id="tbl-grd-resp-hist"><thead></thead><tbody></tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PÁGINA: RESPONSÁVEIS PELA CONCILIAÇÃO (colaboradores) ====== -->
+  <section class="page" id="page-responsaveis" hidden>
+    <div class="card">
+      <h2 class="section-title">Responsáveis pela Conciliação</h2>
+      <p class="muted">
+        Cadastro dos colaboradores que assumem carteiras de conciliação. O vínculo de
+        cada convênio a um responsável é feito na <b>Gerência de Convênios</b>, na aba
+        Responsáveis do convênio. <b>Desligar</b> um colaborador libera os convênios
+        dele como <b>Usuário Não Cadastrado</b>, sem perder o histórico.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="aba-titulo" id="titulo-form-colab">Novo colaborador</div>
+      <div class="form-grid">
+        <div class="field"><label>Nome *</label><input data-col="nome" id="col-nome" placeholder="Obrigatório"></div>
+        <div class="field"><label>Status</label>
+          <select data-col="status" id="col-status"><option>ATIVO</option><option>DESLIGADO</option></select>
+        </div>
+        <div class="field field-wide"><label>Observação</label><textarea data-col="observacao" rows="2"></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-salvar-colab">Salvar colaborador</button>
+        <button class="btn btn-secondary" id="btn-novo-colab">Novo / Limpar</button>
+      </div>
+      <div class="form-msg" id="msg-colab"></div>
+    </div>
+
+    <div class="card">
+      <div class="alert-invert" id="colab-resumo">0 colaborador(es)</div>
+      <div class="tbl-hint">💡 Clique numa linha para editar o status/observação (o nome é a chave e não muda).</div>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-colaboradores"><thead></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PÁGINA: REMESSAS POR CONVÊNIO (submódulo de Conciliação) ====== -->
+  <section class="page" id="page-remessas" hidden>
+    <div class="card">
+      <h2 class="section-title">Remessas por convênio</h2>
+      <p class="muted">
+        Cadastro da <b>remessa de cada convênio</b>: gestora de margem, acesso, modelo
+        de averbação, data de corte e modo de envio. A lista traz um convênio por linha —
+        clique numa linha para editar.
+      </p>
+      <div class="filtros-grid">
+        <div class="field">
+          <label for="rem-f-originadora">Originadora</label>
+          <select id="rem-f-originadora"></select>
+        </div>
+        <div class="field">
+          <label for="rem-f-gestora">Gestora de margem</label>
+          <select id="rem-f-gestora"></select>
+        </div>
+        <div class="field">
+          <label for="rem-f-status">Status</label>
+          <select id="rem-f-status"></select>
+        </div>
+        <div class="field">
+          <label for="rem-f-corte">Data de corte</label>
+          <select id="rem-f-corte"></select>
+        </div>
+        <div class="field field-busca">
+          <label for="rem-busca">Busca</label>
+          <input type="text" id="rem-busca" placeholder="Convênio, CNPJ...">
+        </div>
+      </div>
+      <div class="tbl-hint">💡 Os filtros são encadeados: a Originadora limita as Gestoras, que limitam o Status.</div>
+      <div class="alert-invert" id="rem-resumo">0 convênio(s)</div>
+      <div class="table-wrapper table-wrapper-scroll">
+        <table class="grid grid-compact" id="tbl-remessas"><thead></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <div class="card" id="card-rem-form" hidden>
+      <div class="aba-titulo" id="titulo-rem-form">Remessa por mês</div>
+
+      <!-- Identidade / regra do convênio: somente leitura aqui (editada na
+           Gestão de Convênios). -->
+      <div class="form-grid form-grid-2">
+        <div class="field"><label>Originador</label><input data-rid="originador" disabled></div>
+        <div class="field"><label>Nome do convênio</label><input data-rid="nome_convenio" disabled></div>
+        <div class="field"><label>CNPJ</label><input data-rid="cnpj_convenio" disabled></div>
+        <div class="field"><label>Status</label><input data-rid="status" disabled></div>
+        <div class="field"><label>Status de produção (Gestão de Convênios)</label><input data-rid="status_producao" disabled></div>
+        <div class="field"><label>Gestora de margem</label><input data-rid="gestora_margem" disabled></div>
+        <div class="field"><label>URL</label><input data-rid="link_gestora" id="rem-url" disabled></div>
+        <div class="field field-inline"><button class="btn btn-secondary" id="btn-acessar-url-gestora">Acessar URL</button></div>
+      </div>
+
+      <!-- Registro MENSAL (lastro): replicado do mês anterior, histórico imutável. -->
+      <div class="aba-titulo">Registro mensal da remessa (lastro)</div>
+      <div class="tbl-hint">💡 Estes dados são <b>por mês</b>: replicados do mês anterior e editáveis só no <b>mês corrente</b>. Meses passados são <b>histórico</b> e não mudam — é o lastro de como a remessa foi enviada. Clique numa linha do histórico para vê-la.</div>
+      <div class="form-grid form-grid-2">
+        <div class="field"><label>Mês</label><input type="month" id="rem-envio-mes"></div>
+        <div class="field"><label>Data corte (dia)</label><select data-fm="corte" id="rem-envio-corte"></select></div>
+        <div class="field"><label>Modo de envio</label>
+          <div class="chips-toggle" id="rem-modo-envio"></div>
+          <span class="ro">Clique para marcar/desmarcar (pode selecionar vários).</span>
+        </div>
+        <div class="field"><label>Modelo de averbação</label>
+          <div class="chips-toggle" id="rem-modelo-averbacao"></div>
+          <span class="ro">Clique para marcar/desmarcar (pode selecionar vários).</span>
+        </div>
+        <div class="field"><label>Acesso</label><select data-fm="acesso" id="rem-acesso"></select></div>
+        <div class="field"><label>Status da importação</label><select data-fm="status_importacao" id="rem-status-importacao"></select></div>
+        <div class="field"><label>Status do envio</label><select data-fm="status_envio" id="rem-envio-status"></select></div>
+        <div class="field field-wide"><label>OBS.</label><textarea data-fm="obs" rows="2"></textarea></div>
+      </div>
+      <div class="alert" id="rem-envio-aviso" hidden></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-salvar-envio-mes">Salvar mês</button>
+      </div>
+      <div class="form-msg" id="msg-remessas"></div>
+
+      <div class="aba-titulo">Histórico mensal</div>
+      <div class="table-wrapper">
+        <table class="grid" id="tbl-rem-envios"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="form-msg" id="msg-rem-envio"></div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/convenios.js"></script>
+<script src="js/gerencia.js"></script>
+<script src="js/responsaveis.js"></script>
+<script src="js/remessas.js"></script>
+<script src="js/remessa_convenios.js"></script>
+</body>
+</html>
+

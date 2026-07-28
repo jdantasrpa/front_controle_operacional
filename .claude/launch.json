@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "front-estatico",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8780", "--directory", "front"],
+      "port": 8780
+    }
+  ]
+}

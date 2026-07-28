@@ -1,0 +1,406 @@
+/* ============================================================
+   Alvo Card — Controle Operacional
+   Temas Claro (referência Dashboard) e Escuro — marca #8C52FF.
+   Alterna via atributo data-theme no <html>.
+   ============================================================ */
+
+/* -------- Tema CLARO (padrão) -------- */
+:root, :root[data-theme="light"]{
+  --bg: #f3f0ff;
+  --surface: #ffffff;
+  --surface-2: #fafafe;
+  --border: #ece8fa;
+  --border-strong: #d8d8e2;
+  --brand: #8C52FF;
+  --brand-2: #a06bff;
+  --brand-dark: #221533;
+  --brand-soft: #f3f0ff;
+  --text: #221533;
+  --text-dim: #6b7280;
+  --text-faint: #9aa1ad;
+  --topbar-bg: #221533;
+  --topbar-text: #ffffff;
+  --thead-bg: #221533;
+  --thead-text: #ffffff;
+  --row-alt: #f3f0ff55;
+  --ok: #16a34a;
+  --ok-soft: #e7f6ec;
+  --warn: #d97706;
+  --warn-soft: #fbf0df;
+  --danger: #dc2626;
+  --danger-soft: #fbe6e6;
+  --radius: 14px;
+  --radius-sm: 9px;
+  --shadow: 0 10px 26px rgba(20,10,40,.10);
+  --shadow-pop: 0 12px 28px rgba(20,10,40,.16);
+}
+
+/* -------- Tema ESCURO -------- */
+:root[data-theme="dark"]{
+  --bg: #140b22;
+  --surface: #1e1435;
+  --surface-2: #271a44;
+  --border: #33254d;
+  --border-strong: #3d2c5c;
+  --brand: #a06bff;
+  --brand-2: #b78cff;
+  --brand-dark: #0f0820;
+  --brand-soft: rgba(140,82,255,.16);
+  --text: #f1ecfb;
+  --text-dim: #b3a6cc;
+  --text-faint: #8577a3;
+  --topbar-bg: #1a1030;
+  --topbar-text: #f1ecfb;
+  --thead-bg: #271a44;
+  --thead-text: #cbb8f0;
+  --row-alt: rgba(140,82,255,.06);
+  --ok: #2fd07a;
+  --ok-soft: rgba(47,208,122,.14);
+  --warn: #f0a63a;
+  --warn-soft: rgba(240,166,58,.14);
+  --danger: #f2686a;
+  --danger-soft: rgba(242,104,106,.14);
+  --shadow: 0 10px 26px rgba(0,0,0,.35);
+  --shadow-pop: 0 14px 30px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+
+html,body{margin:0; height:100%}
+body{
+  font-family:'Inter','Segoe UI',Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+  transition:background .2s ease, color .2s ease;
+}
+
+/* ---------------- Topbar (hero) ---------------- */
+.app-topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:14px 28px;
+  background:var(--topbar-bg);
+  color:var(--topbar-text);
+  box-shadow:var(--shadow);
+}
+.app-title{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+.app-logo{height:38px; width:auto; display:block}
+.app-title-text h1{margin:0; font-size:17px; font-weight:700; letter-spacing:-.2px; color:var(--topbar-text)}
+.app-title-text small{color:var(--brand-2); font-size:11px; letter-spacing:1px; text-transform:uppercase; font-weight:600}
+.breadcrumb-pill{
+  padding:6px 14px; border-radius:999px;
+  background:rgba(140,82,255,.20); color:var(--brand-2);
+  font-size:12px; font-weight:600; white-space:nowrap;
+}
+.topbar-actions{display:flex; align-items:center; gap:12px}
+
+/* Botão de tema — único, mostra o tema em uso (sol = claro, lua = escuro) */
+.theme-btn{
+  padding:8px 16px; border:1px solid rgba(255,255,255,.18); border-radius:999px;
+  background:rgba(255,255,255,.10);
+  color:var(--topbar-text); font-size:12px; font-weight:600; font-family:inherit; cursor:pointer;
+  white-space:nowrap; transition:background .15s ease, border-color .15s ease;
+}
+.theme-btn:hover{background:var(--brand); border-color:var(--brand); color:#fff}
+
+/* ---------------- Main / pages ---------------- */
+.app-main{max-width:1320px; margin:0 auto; padding:26px 24px 60px}
+.page{animation:fade .25s ease}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+
+/* ---------------- Cards ---------------- */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-top:3px solid var(--brand);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px 24px;
+  margin-bottom:20px;
+}
+.section-title{margin:0 0 4px; font-size:18px; font-weight:700; letter-spacing:-.3px; color:var(--text)}
+.muted{color:var(--text-dim); font-size:12.5px; margin:0 0 16px}
+.aba-titulo{
+  font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.6px;
+  color:var(--brand); margin-bottom:14px;
+}
+
+/* ---------------- Módulos ---------------- */
+/* Flex em vez de grid: o botão para onde o texto acaba, em vez de
+   esticar até a borda do card. */
+.modulos-grid{display:flex; flex-wrap:wrap; gap:16px; margin-top:8px}
+.btn-modulo{
+  flex:0 0 auto;
+  display:flex; flex-direction:column; align-items:flex-start; gap:14px;
+  padding:24px; border-radius:var(--radius);
+  background:var(--surface-2); border:1px solid var(--border);
+  color:var(--text); font-size:15px; font-weight:600; font-family:inherit;
+  cursor:pointer; text-align:left;
+  transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+.btn-modulo:hover:not(.is-disabled){transform:translateY(-2px); border-color:var(--brand); box-shadow:var(--shadow)}
+.btn-modulo.is-disabled{opacity:.45; cursor:not-allowed}
+.btn-modulo-icon svg{width:27px; height:27px; display:block}
+.btn-modulo-icon{
+  width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  background:var(--brand-soft); font-size:22px; color:var(--brand);
+}
+
+/* ---------------- Botões ---------------- */
+.btn{
+  padding:10px 20px; border-radius:var(--radius-sm); border:1px solid transparent;
+  font-size:13px; font-weight:700; font-family:inherit; cursor:pointer;
+  transition:background .15s ease, border-color .15s ease, color .15s ease, opacity .15s ease, transform .1s ease;
+}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--brand); color:#fff}
+.btn-primary:hover{opacity:.88}
+.btn-secondary{background:var(--brand-soft); color:var(--brand-dark); border-color:transparent}
+.btn-secondary:hover{background:var(--brand); color:#fff}
+.btn-ghost{background:transparent; color:var(--text-dim); border-color:var(--border-strong)}
+.btn-ghost:hover{background:var(--surface-2); color:var(--text)}
+
+/* ---------------- Campos / formulários ---------------- */
+.field{display:flex; flex-direction:column; gap:6px}
+.field label{font-size:10.5px; font-weight:600; color:var(--text-dim); text-transform:uppercase; letter-spacing:.4px}
+.field label .ro{text-transform:none; letter-spacing:0; color:var(--text-faint); font-weight:500}
+input, select, textarea{
+  padding:9px 11px; border:1px solid var(--border-strong); border-radius:8px;
+  background:var(--surface-2); color:var(--text); font-size:12.5px; font-family:inherit;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+input:focus, select:focus, textarea:focus{outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(140,82,255,.22)}
+input:disabled, textarea:disabled{background:var(--brand-soft); color:var(--text-dim); cursor:not-allowed}
+/* Observações: no mínimo 3 linhas visíveis, sem cortar o que foi digitado. */
+textarea{width:100%; min-height:74px; line-height:1.45; resize:vertical}
+select option{background:var(--surface); color:var(--text)}
+
+/* Campo de chave: fica visível e travado, com cadeado, para o operador
+   conferir a identidade do registro que está editando sem achar que a
+   tela quebrou. Ver a nota de imutabilidade em js/convenios.js. */
+.campo-chave:disabled{
+  background:var(--brand-soft); color:var(--text); font-weight:600;
+  border-style:dashed; cursor:not-allowed;
+}
+.campo-chave:disabled::after{content:' 🔒'}
+
+.form-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
+.form-grid-2{grid-template-columns:repeat(2,1fr)}
+.field-wide{grid-column:1/-1}
+.form-actions{display:flex; gap:10px; margin-top:20px; flex-wrap:wrap}
+.form-msg{margin-top:12px; font-size:13px; font-weight:600; min-height:18px}
+.form-msg.is-ok{color:var(--ok)}
+.form-msg.is-erro{color:var(--danger)}
+
+/* ---------------- Sintético: filtros ---------------- */
+.accordion{border:1px solid var(--border); border-radius:var(--radius-sm); padding:0 16px; background:var(--surface-2)}
+.accordion>summary{cursor:pointer; font-weight:700; padding:14px 4px; font-size:12.5px; color:var(--text); list-style:none}
+.accordion>summary::-webkit-details-marker{display:none}
+.filtros-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; padding:6px 0 14px}
+.field-busca{padding-bottom:16px}
+.sintetico-actions{display:flex; gap:10px; padding:0 0 16px; flex-wrap:wrap}
+
+.alert-invert{
+  display:inline-block; padding:8px 16px; border-radius:999px;
+  background:var(--brand); color:#fff; font-size:12.5px; font-weight:700; margin-bottom:18px;
+}
+.alert{
+  padding:12px 16px; border-radius:var(--radius-sm);
+  background:var(--brand-soft); color:var(--brand-dark); font-size:13.5px;
+}
+:root[data-theme="dark"] .alert{color:var(--text)}
+
+/* Faixa de modo: dados reais (leitura) x demonstração (localStorage) */
+.alert-modo{display:block; margin-bottom:20px; border:1px solid var(--border); font-size:12.5px}
+.alert-modo.is-api{background:var(--ok-soft); color:var(--ok); border-color:var(--ok)}
+.alert-modo.is-demo{background:var(--warn-soft); color:var(--warn); border-color:var(--warn)}
+.alert-modo b{color:inherit}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.btn:disabled:hover{opacity:.45}
+.tbl-hint{margin-top:12px; font-size:12.5px; color:var(--text-dim)}
+
+/* ---------------- Tabelas ---------------- */
+.table-wrapper{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius-sm)}
+/* Altura vem do JS (3 linhas medidas); aqui só liberamos o scroll. */
+.table-wrapper-scroll{overflow-y:auto}
+table.grid{width:100%; border-collapse:collapse; font-size:12.5px}
+table.grid thead th{
+  position:sticky; top:0; background:var(--thead-bg); color:var(--thead-text);
+  font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; font-weight:700;
+  padding:11px 12px; text-align:center; white-space:nowrap; z-index:1;
+}
+table.grid td{padding:10px 12px; text-align:center; vertical-align:middle; border-bottom:1px solid var(--border); white-space:nowrap; color:var(--text)}
+table.grid td.cell-left, table.grid th.cell-left{text-align:left}
+table.grid td.cell-wrap{white-space:pre-wrap; text-align:left; min-width:200px; max-width:360px}
+table.grid td.cell-alerta{color:var(--danger); font-weight:700}
+table.grid td.cell-trunc{max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left}
+table.grid.grid-compact td{padding:9px 12px}
+table.grid tbody tr{cursor:pointer; transition:background .1s ease}
+table.grid tbody tr:nth-child(even) td{background:var(--row-alt)}
+table.grid tbody tr:hover td{background:var(--brand-soft)}
+table.grid tbody tr.selected td{background:var(--brand-soft)}
+table.grid tbody tr.selected td:first-child{box-shadow:inset 3px 0 0 var(--brand)}
+.cell-empty{color:var(--text-faint); padding:28px 0 !important; cursor:default; background:transparent !important}
+.empty-state{text-align:center; color:var(--text-faint); padding:30px 0; font-size:13px}
+
+/* ---------------- Badges ---------------- */
+.badge{display:inline-block; padding:4px 12px; border-radius:999px; font-size:11px; font-weight:700; white-space:nowrap}
+.badge-ok{background:var(--ok-soft); color:var(--ok)}
+.badge-warn{background:var(--warn-soft); color:var(--warn)}
+.badge-danger{background:var(--danger-soft); color:var(--danger)}
+
+/* ---------------- Tabs (analítico) ---------------- */
+.tabs-nav{
+  display:flex; gap:5px; flex-wrap:wrap; margin-bottom:20px;
+  background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:8px;
+  box-shadow:var(--shadow);
+}
+.tab-btn{
+  padding:9px 16px; border:none; background:transparent; border-radius:8px;
+  font-size:12.5px; font-weight:700; font-family:inherit; color:var(--text-dim); cursor:pointer;
+  transition:background .12s ease, color .12s ease;
+}
+.tab-btn:hover:not(.active){background:var(--brand-soft); color:var(--text)}
+.tab-btn.active{background:var(--brand); color:#fff}
+.tab-panel{animation:fade .18s ease}
+
+/* ---------------- Vencimentário (dashboard) ---------------- */
+.venc-bar{display:flex; flex-direction:column; gap:16px}
+.venc-topo{display:flex; gap:20px; align-items:flex-end; justify-content:space-between; flex-wrap:wrap}
+.venc-topo .aba-titulo{margin-bottom:4px}
+.venc-sub{margin:0}
+.venc-legenda{
+  display:flex; flex-direction:column; gap:8px; font-size:12.5px; color:var(--text-dim);
+  border-top:1px solid var(--border); padding-top:14px;
+}
+.venc-legenda b{color:var(--text)}
+
+.scope-badge{
+  display:inline-block; padding:2px 10px; border-radius:999px; font-size:10.5px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.4px; margin-right:6px;
+}
+.scope-badge.scope-venc{background:var(--brand-soft); color:var(--brand)}
+.scope-badge.scope-shared{background:var(--warn-soft); color:var(--warn)}
+
+.scope-note{
+  padding:11px 15px; border-radius:var(--radius-sm); font-size:12.5px; margin-bottom:18px;
+  border:1px solid var(--border);
+}
+.scope-note.scope-venc{background:var(--brand-soft); color:var(--brand-dark)}
+:root[data-theme="dark"] .scope-note.scope-venc{color:var(--text)}
+.scope-note.scope-shared{background:var(--warn-soft); color:var(--warn)}
+.scope-note b{color:inherit}
+
+/* ---------------- Chips (secretarias devedoras) ---------------- */
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{
+  display:inline-block; padding:6px 14px; border-radius:999px;
+  font-size:12px; font-weight:700; border:1px solid transparent;
+}
+.chip-danger{background:var(--danger-soft); color:var(--danger); border-color:var(--danger)}
+.chip-ok{background:var(--ok-soft); color:var(--ok); border-color:var(--ok)}
+
+/* Chips clicáveis (flag on/off) — ex.: Modelo de averbação da Remessa. */
+.chips-toggle{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
+.chips-toggle.is-locked{opacity:.55; pointer-events:none}
+.chip-toggle{
+  cursor:pointer; padding:6px 14px; border-radius:999px;
+  font-size:12px; font-weight:700; user-select:none;
+  border:1px solid var(--border-strong); background:transparent;
+  color:var(--text-dim);
+  transition:background .12s, color .12s, border-color .12s;
+}
+.chip-toggle:hover{border-color:var(--ok)}
+.chip-toggle.is-on{
+  background:var(--ok-soft); color:var(--ok); border-color:var(--ok);
+}
+.chip-toggle.is-on::before{content:'✓ '}
+
+/* Flags: valor(es) selecionado(s) como chips coloridos numa célula. Um
+   mesmo valor sempre cai na mesma cor (hash), e vários aparecem juntos. */
+.cell-flags{display:flex; flex-wrap:wrap; gap:4px; justify-content:center; align-items:center}
+.chip-flag{padding:3px 10px; font-size:11px; font-weight:700}
+.flag-c0{background:rgba(140,82,255,.16); color:var(--brand); border-color:var(--brand)}
+.flag-c1{background:rgba(22,163,74,.14); color:var(--ok); border-color:var(--ok)}
+.flag-c2{background:rgba(217,119,6,.14); color:var(--warn); border-color:var(--warn)}
+.flag-c3{background:rgba(37,99,235,.14); color:#2563eb; border-color:#2563eb}
+.flag-c4{background:rgba(219,39,119,.14); color:#db2777; border-color:#db2777}
+.flag-c5{background:rgba(13,148,136,.14); color:#0d9488; border-color:#0d9488}
+
+.scope-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-left:5px; vertical-align:middle}
+
+/* -------- Gerência de Convênios (Conciliação) -------- */
+/* Botão compacto para ações dentro de linha da grade. */
+.btn-sm{padding:5px 12px; font-size:12px}
+
+/* Célula com vários botões de ação: não deixa amontoar. */
+.cell-acoes{display:flex; flex-wrap:wrap; gap:6px; justify-content:center}
+
+/* Dia de vencimento: campo numérico curto (1 a 30). */
+.input-dia{width:64px; text-align:center}
+
+/* Linha clicável (abre o detalhe do convênio). */
+.linha-clicavel{cursor:pointer}
+
+/* Linha concluída (remessa enviada). */
+.linha-ok{background:var(--ok-soft)}
+
+/* Valor só-leitura nas abas de detalhe (Dados Gerais, Originadora). */
+.ro-valor{
+  padding:9px 12px; border-radius:var(--radius-sm);
+  background:var(--surface-2); border:1px solid var(--border);
+  color:var(--text); min-height:20px;
+}
+
+/* Campo com rótulo + toggle lado a lado. */
+.field-inline{display:flex; align-items:center; gap:12px}
+.field-inline label:first-child{margin:0}
+
+/* Linha de convênio desligado na conciliação: recuada visualmente sem
+   sumir, para a mesa continuar vendo o que optou por não acompanhar. */
+.linha-desligada{opacity:.55}
+
+/* Toggle liga/desliga — checkbox nativo estilizado como interruptor. */
+.switch{position:relative; display:inline-block; width:42px; height:23px}
+.switch input{opacity:0; width:0; height:0}
+.switch span{
+  position:absolute; inset:0; cursor:pointer; border-radius:999px;
+  background:var(--border-strong); transition:background .18s;
+}
+.switch span::before{
+  content:''; position:absolute; height:17px; width:17px; left:3px; top:3px;
+  background:#fff; border-radius:50%; transition:transform .18s;
+  box-shadow:0 1px 3px rgba(20,10,40,.35);
+}
+.switch input:checked + span{background:var(--brand)}
+.switch input:checked + span::before{transform:translateX(19px)}
+.switch input:focus-visible + span{outline:2px solid var(--brand-2); outline-offset:2px}
+.scope-dot.scope-venc{background:var(--brand)}
+.scope-dot.scope-shared{background:var(--warn)}
+
+/* ---------------- Toast ---------------- */
+.toast-container{position:fixed; bottom:22px; right:22px; z-index:300; display:flex; flex-direction:column; gap:10px; max-width:340px}
+.toast{
+  padding:13px 18px; border-radius:var(--radius-sm); background:var(--surface);
+  border:1px solid var(--border); box-shadow:var(--shadow-pop);
+  font-size:13px; font-weight:600; color:var(--text); border-left:4px solid var(--brand);
+  animation:toast-in .2s ease;
+}
+.toast-ok{border-left-color:var(--ok)}
+.toast-erro{border-left-color:var(--danger)}
+.toast.hide{animation:toast-out .2s ease forwards}
+@keyframes toast-in{from{opacity:0; transform:translateX(12px)}to{opacity:1; transform:none}}
+@keyframes toast-out{to{opacity:0; transform:translateX(12px)}}
+
+/* ---------------- Responsivo ---------------- */
+@media (max-width:720px){
+  .app-topbar{padding:12px 16px; flex-wrap:wrap}
+  .app-main{padding:20px 14px 48px}
+  .card{padding:16px}
+  .form-grid-2{grid-template-columns:1fr}
+  .sintetico-actions .btn, .form-actions .btn{flex:1}
+  .theme-btn{padding:6px 10px}
+}

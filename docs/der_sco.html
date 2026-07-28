@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DER — SCO Controle Operacional</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --ink: #1a2230;
+    --muted: #5b6675;
+    --line: #d8dde5;
+    --accent: #2f6f7a;
+    --accent-soft: #e4eef0;
+    --chip-gestao: #2f6f7a;
+    --chip-concil: #7a5a2f;
+    --chip-resp: #4a2f7a;
+    --chip-fin: #2f7a4a;
+    --chip-anal: #7a2f5a;
+    --chip-cob: #7a3f2f;
+    --chip-sys: #3f4a5a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10151c;
+      --panel: #171e27;
+      --ink: #e7ecf2;
+      --muted: #97a2b0;
+      --line: #29323f;
+      --accent: #6fc3cf;
+      --accent-soft: #16323a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { border-bottom: 2px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: .14em; font-size: 12px;
+    font-weight: 700; color: var(--accent); margin: 0 0 6px;
+  }
+  h1 { margin: 0 0 6px; font-size: 27px; letter-spacing: -.01em; }
+  .sub { margin: 0; color: var(--muted); font-size: 15px; }
+  h2 {
+    font-size: 15px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); margin: 34px 0 12px; border-top: 1px solid var(--line);
+    padding-top: 18px;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 6px; }
+  .chip {
+    font-size: 12px; font-weight: 600; color: #fff; padding: 3px 10px;
+    border-radius: 999px; letter-spacing: .01em;
+  }
+  .diagram-panel {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px; overflow-x: auto;
+  }
+  pre.mermaid { margin: 0; text-align: center; min-width: 900px; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 5px 0; }
+  code {
+    background: var(--accent-soft); color: var(--ink); padding: 1px 6px;
+    border-radius: 5px; font-size: 13px;
+    font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 14px; color: var(--accent); }
+  .card p { margin: 0; font-size: 13.5px; color: var(--muted); }
+  .note { font-size: 13.5px; color: var(--muted); }
+  strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">SCO · Controle Operacional</p>
+    <h1>Diagrama Entidade-Relacionamento (DER)</h1>
+    <p class="sub">Modelagem relacional proposta para migração do file-store atual → Supabase / PostgreSQL. Versão para revisão.</p>
+  </header>
+
+  <div class="legend">
+    <span class="chip" style="background:var(--chip-gestao)">Gestão de Convênios</span>
+    <span class="chip" style="background:var(--chip-concil)">Conciliação / Gerência</span>
+    <span class="chip" style="background:var(--chip-resp)">Responsáveis</span>
+    <span class="chip" style="background:var(--chip-fin)">Financeiro</span>
+    <span class="chip" style="background:var(--chip-anal)">Analítico (abas)</span>
+    <span class="chip" style="background:var(--chip-cob)">Cobrança</span>
+    <span class="chip" style="background:var(--chip-sys)">Sistema</span>
+  </div>
+
+  <div class="diagram-panel">
+<pre class="mermaid">
+erDiagram
+  originadora ||--o{ vinculo : opera
+  convenio    ||--o{ vinculo : "assume numero"
+  originadora ||--|| gerencia_originadora : "grupo master"
+  convenio    ||--o{ convenio_grupo : classifica
+  grupo       ||--o{ convenio_grupo : agrupa
+
+  vinculo ||--|| gerencia_conciliacao : controla
+  vinculo ||--o{ custo : cobra
+  custo   ||--o{ custo_faixa : escalona
+  vinculo ||--o{ vencimentario : gera
+  vinculo ||--|| responsavel_convenio : "tem responsavel"
+  vinculo ||--o{ secretaria : possui
+  vinculo ||--o{ particularidade : possui
+  vinculo ||--o{ conta : possui
+  vinculo ||--o{ contato : possui
+  vinculo ||--o{ cobranca_caso : origina
+
+  vencimentario ||--o| remessa_envio : envia
+  vencimentario ||--o{ repasse : recebe
+  custo         ||--o{ repasse : "aplicado em"
+
+  colaborador ||--o{ responsavel_convenio : "titular"
+  colaborador ||--o{ responsavel_convenio : "substituto"
+  responsavel_convenio ||--o{ responsavel_historico : audita
+
+  cobranca_caso ||--o{ cobranca_tentativa : registra
+
+  originadora {
+    bigint id PK
+    text nome UK
+    text codigo UK
+    text cnpj
+    text status
+    text observacao
+    timestamptz criado_em
+  }
+  convenio {
+    bigint id PK
+    text cnpj UK
+    text nome
+    text averbadora
+    text status
+    text status_producao
+    text gestora_margem
+    text link_gestora
+    text observacao
+  }
+  vinculo {
+    bigint id PK
+    bigint originadora_id FK
+    bigint convenio_id FK
+    text numero_convenio UK
+    text status
+    char competencia_inicio
+    char competencia_fim
+    text observacao
+  }
+  grupo {
+    bigint id PK
+    text nome UK
+  }
+  convenio_grupo {
+    bigint convenio_id FK
+    bigint grupo_id FK
+  }
+  custo {
+    bigint id PK
+    bigint vinculo_id FK
+    text metodo
+    text base_calculo
+    numeric aliquota_percentual
+    numeric valor_fixo
+    numeric valor_unitario
+    char competencia_inicio
+    char competencia_fim
+    text status
+  }
+  custo_faixa {
+    bigint id PK
+    bigint custo_id FK
+    numeric ate
+    numeric aliquota_percentual
+    numeric valor_fixo
+    numeric valor_unitario
+  }
+  gerencia_conciliacao {
+    bigint id PK
+    bigint vinculo_id FK
+    boolean em_conciliacao_ativa
+    int dia_vencimento
+    int dias_antes_remessa
+    int qtd_dias_sla_pagamento
+    int dias_antes_corte
+    text ator
+  }
+  gerencia_originadora {
+    bigint id PK
+    bigint originadora_id FK
+    boolean em_conciliacao_ativa
+    text ator
+  }
+  vencimentario {
+    bigint id PK
+    bigint vinculo_id FK
+    char competencia
+    date data_vencimento
+    date data_env_remessa
+    date data_sla_conciliacao
+    date data_corte
+    numeric valor_remessa
+    numeric valor_retorno
+    numeric valor_repasse
+    text status_conciliacao
+    text motivo_falta_conciliacao
+    numeric porcentagem_inadimplencia
+  }
+  remessa_envio {
+    bigint id PK
+    bigint vencimentario_id FK
+    text situacao
+    date data_envio
+    text usuario
+    text observacao
+  }
+  repasse {
+    bigint id PK
+    bigint vencimentario_id FK
+    bigint custo_id FK
+    text secretaria
+    text status_financeiro
+    date data_recebimento
+    numeric valor_recebido
+    int quantidade
+    numeric custo_aplicado
+    numeric devendo
+    text observacao
+  }
+  colaborador {
+    bigint id PK
+    text nome UK
+    text status
+    text observacao
+  }
+  responsavel_convenio {
+    bigint id PK
+    bigint vinculo_id FK
+    bigint titular_id FK
+    bigint substituto_id FK
+    date substituicao_fim
+    text ator
+  }
+  responsavel_historico {
+    bigint id PK
+    bigint responsavel_id FK
+    text acao
+    text de
+    text para
+    text ator
+    timestamptz em
+  }
+  secretaria {
+    bigint id PK
+    bigint vinculo_id FK
+    text status
+    text nome
+    text codigo
+    text observacao
+  }
+  particularidade {
+    bigint id PK
+    bigint vinculo_id FK
+    text status
+    text rubrica_produto
+    text modelo_averbacao
+    text modelo_envio
+    text observacao
+  }
+  conta {
+    bigint id PK
+    bigint vinculo_id FK
+    text status
+    text banco
+    text agencia
+    text conta
+    text chave_pix
+    text cnpj
+  }
+  contato {
+    bigint id PK
+    bigint vinculo_id FK
+    text status
+    text secretaria
+    text nome
+    text email
+    text telefone
+    text area
+  }
+  cobranca_caso {
+    bigint id PK
+    bigint vinculo_id FK
+    char competencia
+    numeric valor
+    text status
+  }
+  cobranca_tentativa {
+    bigint id PK
+    bigint cobranca_caso_id FK
+    date data
+    text canal
+    text resultado
+  }
+  usuario {
+    bigint id PK
+    text email UK
+    text nome
+    text perfil
+    text senha_hash
+    boolean ativo
+  }
+</pre>
+  </div>
+
+  <h2>Decisões de modelagem</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Chave técnica + chave natural</h3>
+      <p>Toda tabela recebe <code>id bigint identity</code> como PK. As chaves imutáveis do domínio (CNPJ, nome, numero_convenio) viram <strong>UNIQUE</strong> — FKs referenciam o <code>id</code>, não o texto, para permitir correção sem quebrar vínculos.</p>
+    </div>
+    <div class="card">
+      <h3>O vínculo é o centro</h3>
+      <p><code>vinculo</code> (convênio × originadora) é o hub. Conciliação, custo, responsável, remessa, financeiro e abas do analítico penduram nele — não no convênio mestre.</p>
+    </div>
+    <div class="card">
+      <h3>Competência como texto AAAA-MM</h3>
+      <p><code>char(7)</code> (ex.: <code>2026-07</code>) espelha o file-store e ordena lexicograficamente. Alternativa: <code>date</code> truncado ao 1º dia — decidir na revisão.</p>
+    </div>
+    <div class="card">
+      <h3>Custo versionado, não sobrescrito</h3>
+      <p><code>custo</code> guarda histórico por vigência + <code>status</code> ATIVO/INATIVO. <code>custo_faixa</code> só existe no método FAIXA. O <strong>custo vigente</strong> é calculado por competência.</p>
+    </div>
+    <div class="card">
+      <h3>Financeiro registra o custo aplicado</h3>
+      <p><code>repasse.custo_id</code> + <code>custo_aplicado</code> + <code>devendo</code> gravam o <em>snapshot</em> auditável: qual regra de custo entrou no cálculo e o resultado. <code>status_financeiro</code> é definido pelo backend.</p>
+    </div>
+    <div class="card">
+      <h3>Status independentes</h3>
+      <p>Gestão (<code>convenio.status</code>) e Conciliação (<code>gerencia_conciliacao.em_conciliacao_ativa</code>) não se influenciam — só se exibem lado a lado. Modelados em tabelas distintas.</p>
+    </div>
+    <div class="card">
+      <h3>Auditoria em toda tabela mutável</h3>
+      <p>Colunas <code>criado_em</code> / <code>atualizado_em</code> (<code>timestamptz</code>) e <code>ator</code>. Histórico de responsável em tabela dedicada (<code>responsavel_historico</code>).</p>
+    </div>
+    <div class="card">
+      <h3>Indicadores = VIEW</h3>
+      <p>Os indicadores de conciliação (mês/quadrimestre/ano) não são tabela: <code>VIEW</code> (ou materialized view) agregando <code>vencimentario</code>. Zero duplicação de dado.</p>
+    </div>
+  </div>
+
+  <h2>Pontos a decidir</h2>
+  <ul class="note">
+    <li><strong>Competência:</strong> manter <code>char(7)</code> AAAA-MM ou migrar para <code>date</code> (1º dia do mês)?</li>
+    <li><strong>Remessa:</strong> <code>remessa_envio</code> 1:1 com o vencimentário (como está) ou permitir múltiplos envios por vencimento (histórico de reenvio)?</li>
+    <li><strong>Modelo de envio</strong> (particularidade) é múltiplo → normalizar em tabela <code>particularidade_envio</code> (N:N) ou manter como array/texto?</li>
+    <li><strong>Grupo master:</strong> a originadora já agrupa convênios via <code>vinculo</code>. A tabela <code>grupo</code>/<code>convenio_grupo</code> é para uma 2ª dimensão de agrupamento — confirmar se é necessária.</li>
+    <li><strong>Usuários:</strong> aproveitar <code>auth.users</code> nativo do Supabase e ligar <code>usuario</code> por <code>uuid</code>, ou manter tabela própria com <code>senha_hash</code>?</li>
+    <li><strong>Enums:</strong> transformar status/método/situação em <code>ENUM</code> nativos do Postgres (mais rígido) ou manter <code>text</code> + CHECK constraint?</li>
+  </ul>
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const escuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({ startOnLoad: true, theme: escuro ? 'dark' : 'neutral' });
+</script>
+</body>
+</html>

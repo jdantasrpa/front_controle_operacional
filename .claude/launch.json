@@ -4,7 +4,7 @@
     {
       "name": "front-estatico",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8781", "--directory", "front"],
+      "runtimeArgs": ["-m", "http.server", "8781", "--directory", "."],
       "port": 8781
     }
   ]

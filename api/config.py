@@ -19,7 +19,8 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 RAIZ_PROJETO = Path(__file__).resolve().parents[1]
-PASTA_FRONT = RAIZ_PROJETO / 'front'
+# O front agora vive na raiz do repositório (servido pelo GitHub Pages).
+PASTA_FRONT = RAIZ_PROJETO
 
 # COFC_CONFIG permite apontar outro .ini (homologação, testes) sem editar
 # o do projeto. Mesma variável reconhecida pelo main.py.

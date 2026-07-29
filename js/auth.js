@@ -17,6 +17,9 @@
 let scoDB = null; // cliente supabase-js (singleton)
 // { usuario: {id, email, nome, perfil, id_equipe, ativo, aprovado}, token }
 let scoSessaoAtual = null;
+// true = trocar senha estando logado (não desloga ao final); false = fluxo
+// de recuperação por e-mail (desloga e volta ao login).
+let scoTrocaLogado = false;
 
 function scoCliente() {
   if (scoDB) return scoDB;
@@ -282,18 +285,42 @@ async function scoDefinirNovaSenha() {
       return;
     }
     $('#sco-nova-senha').value = '';
-    try {
-      await cli.auth.signOut();
-    } catch (_) {
-      /* segue */
-    }
-    scoSessaoAtual = null;
-    toast('Senha atualizada! Faça login com a nova senha.', 'ok');
     scoTrocarForm('login');
-    scoAplicarSessao();
+    if (scoTrocaLogado) {
+      // Troca estando logado: segue na sessão, só fecha o overlay.
+      scoTrocaLogado = false;
+      toast('Senha alterada com sucesso.', 'ok');
+      await scoSincronizarSessao();
+    } else {
+      // Fluxo de recuperação: desloga e volta ao login.
+      try {
+        await cli.auth.signOut();
+      } catch (_) {
+        /* segue */
+      }
+      scoSessaoAtual = null;
+      toast('Senha atualizada! Faça login com a nova senha.', 'ok');
+      scoAplicarSessao();
+    }
   } catch (erro) {
     msgInline('msg-sco-nova', erro.message, 'erro');
   }
+}
+
+// Abre o formulário de nova senha para quem JÁ está logado (sem e-mail).
+function scoTrocaSenhaLogado() {
+  scoTrocaLogado = true;
+  const tela = $('#tela-login');
+  if (tela) tela.hidden = false;
+  $('#sco-nova-senha').value = '';
+  msgInline('msg-sco-nova', '');
+  scoTrocarForm('nova');
+}
+
+function scoCancelarNova() {
+  scoTrocaLogado = false;
+  scoTrocarForm('login');
+  scoAplicarSessao();
 }
 
 // Mostra um dos formulários do gate: login | solicitar | reset | nova.
@@ -311,6 +338,10 @@ function _ligar(id, evento, fn) {
 
 function setupAuth() {
   if (!$('#tela-login')) return;
+
+  // Captura o hash ANTES de criar o cliente — o supabase-js limpa a URL ao
+  // inicializar, então precisamos ler o retorno do link de e-mail aqui.
+  const hashInicial = location.hash || '';
 
   _ligar('btn-sco-entrar', 'click', scoLogin);
   _ligar('sco-senha', 'keydown', (e) => {
@@ -335,6 +366,11 @@ function setupAuth() {
   _ligar('btn-sco-solicitar', 'click', scoSolicitar);
   _ligar('btn-sco-reset-enviar', 'click', scoEsqueciSenha);
   _ligar('btn-sco-nova-salvar', 'click', scoDefinirNovaSenha);
+  _ligar('btn-sco-trocar-senha', 'click', scoTrocaSenhaLogado);
+  _ligar('link-sco-nova-cancelar', 'click', (e) => {
+    e.preventDefault();
+    scoCancelarNova();
+  });
   _ligar('btn-sco-sair', 'click', scoLogout);
   _ligar('btn-sco-admin', 'click', () => navegar('usuarios'));
 
@@ -351,9 +387,19 @@ function setupAuth() {
     });
   }
 
-  // Chegou pelo link de redefinição? Mostra o form de nova senha; senão,
-  // sincroniza a sessão normalmente.
-  if (/type=recovery/.test(location.hash)) {
+  // O link do e-mail pode voltar com erro (expirado/inválido) OU com o token
+  // de recuperação. Trata os dois antes da sincronização normal.
+  const params = new URLSearchParams(hashInicial.replace(/^#/, ''));
+  const erroLink = params.get('error_description') || params.get('error');
+  if (erroLink) {
+    $('#tela-login').hidden = false;
+    scoTrocarForm('reset');
+    msgInline(
+      'msg-sco-reset',
+      decodeURIComponent(erroLink).replace(/\+/g, ' ') + '. Peça um novo link.',
+      'erro',
+    );
+  } else if (/type=recovery/.test(hashInicial)) {
     $('#tela-login').hidden = false;
     scoTrocarForm('nova');
   } else {

@@ -135,7 +135,7 @@ function scoAplicarSessao() {
   }
 
   const btnAdmin = $('#btn-sco-admin');
-  if (btnAdmin) btnAdmin.hidden = !(logado && scoAcessoTotal());
+  if (btnAdmin) btnAdmin.hidden = !(logado && scoPerfil() === 'ADMIN');
 }
 
 async function scoLogin() {

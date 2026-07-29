@@ -1053,30 +1053,32 @@
       <div class="table-wrapper">
         <table class="grid" id="tbl-usuarios"><thead></thead><tbody></tbody></table>
       </div>
-      <div class="tbl-hint">💡 Clique numa linha para editar. Trocar equipe/status vale para ADMIN e MASTER; nome, e-mail e perfil só o ADMIN.</div>
+      <div class="tbl-hint">💡 <b>Pendentes</b> aparecem primeiro. Clique numa linha para aprovar/revogar o acesso e definir o perfil.</div>
     </div>
 
-    <!-- Formulário de usuário -->
+    <!-- Painel de aprovação / edição do usuário selecionado -->
     <div class="card" id="card-usr-form">
-      <div class="aba-titulo" id="titulo-usr-form">Novo usuário</div>
+      <div class="aba-titulo" id="titulo-usr-form">Selecione um usuário na lista</div>
+      <p class="muted">
+        As pessoas entram sozinhas pelo <b>Criar cadastro</b> (ou você as
+        adiciona em Authentication) e ficam <b>PENDENTES</b>. Aqui você
+        <b>aprova/revoga o acesso</b> e define o <b>perfil</b>.
+      </p>
       <div class="form-grid">
-        <div class="field"><label>Nome *</label><input id="usr-nome"></div>
-        <div class="field"><label>E-mail *</label><input type="email" id="usr-email"></div>
+        <div class="field"><label>Nome</label><input id="usr-nome"></div>
+        <div class="field"><label>E-mail</label><input id="usr-email" readonly></div>
         <div class="field"><label>Perfil</label>
           <select id="usr-perfil">
-            <option>OPERADOR</option><option>LEITOR</option><option>GESTOR</option>
-            <option>MASTER</option><option>ADMIN</option>
+            <option>ADMIN</option><option>MASTER</option><option>GESTOR</option>
+            <option>OPERADOR</option><option>LEITOR</option>
           </select>
-        </div>
-        <div class="field"><label>Status</label>
-          <select id="usr-status"><option>ATIVO</option><option>SUSPENSO</option></select>
         </div>
         <div class="field"><label>Equipe</label><select id="usr-equipe"></select></div>
       </div>
-      <div class="alert" id="usr-senha-provisoria" hidden></div>
       <div class="form-actions">
-        <button class="btn btn-primary" id="btn-usr-salvar">Criar usuário</button>
-        <button class="btn btn-secondary" id="btn-usr-novo">Novo / Limpar</button>
+        <button class="btn btn-primary" id="btn-usr-salvar">Salvar perfil</button>
+        <button class="btn btn-secondary" id="btn-usr-acesso" hidden>Aprovar acesso</button>
+        <button class="btn btn-ghost" id="btn-usr-novo">Limpar</button>
       </div>
       <div class="form-msg" id="msg-usr"></div>
     </div>
@@ -1102,17 +1104,6 @@
       <div class="form-msg" id="msg-eqp"></div>
     </div>
 
-    <!-- Solicitações de acesso (somente leitura) -->
-    <div class="card">
-      <div class="aba-titulo">Solicitações de acesso</div>
-      <p class="muted">
-        Somente leitura. A decisão é feita pelos botões <b>Aprovar / Negar</b>
-        enviados por e-mail aos autorizadores.
-      </p>
-      <div class="table-wrapper">
-        <table class="grid grid-compact" id="tbl-solicitacoes"><thead></thead><tbody></tbody></table>
-      </div>
-    </div>
   </section>
 
 </main>

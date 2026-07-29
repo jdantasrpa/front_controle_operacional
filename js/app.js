@@ -1006,6 +1006,13 @@ async function setup() {
   $('#btn-back').addEventListener('click', voltar);
   $$('[data-goto]').forEach((b) => b.addEventListener('click', () => navegar(b.dataset.goto)));
 
+  // Clicar na marca (logo Alvo Card) volta para a página inicial (Módulos).
+  const marca = $('.app-title');
+  if (marca) {
+    marca.style.cursor = 'pointer';
+    marca.addEventListener('click', () => navegar('modulos'));
+  }
+
   $('#btn-filtrar').addEventListener('click', pesquisar);
   $('#btn-abrir').addEventListener('click', abrirAnalitico);
   $('#btn-limpar').addEventListener('click', () => {

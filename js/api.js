@@ -67,7 +67,15 @@ async function _erroDaResposta(resposta, caminho) {
     else if (Array.isArray(corpo.detail)) {
       detalhe = corpo.detail.map((d) => d.msg || '').filter(Boolean).join(' ');
     }
-  } catch (_) { /* resposta sem JSON: fica o texto cru */ }
+  } catch (_) {
+    // Resposta não-JSON (ex.: 404 HTML do GitHub Pages nas telas que ainda
+    // não foram migradas para o Supabase): não despeja o HTML na tela.
+    if (/^\s*<(!doctype|html|\?xml)/i.test(bruto)) {
+      detalhe =
+        'Este módulo ainda não está ligado ao banco (em migração para o '
+        + 'Supabase). Por enquanto, use Originadoras.';
+    }
+  }
 
   const erro = new Error(detalhe || `HTTP ${resposta.status} em ${caminho}`);
   erro.status = resposta.status;

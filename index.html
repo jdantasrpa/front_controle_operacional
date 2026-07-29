@@ -56,7 +56,46 @@
         </button>
       </div>
     </div>
+
+    <!-- Guia de apresentação dos módulos (baseado no README + estrutura do painel) -->
+    <div class="card">
+      <details class="accordion guia">
+        <summary>📖 O que é cada módulo? — guia rápido do SCO</summary>
+
+        <div class="aba-titulo">🧮 Conciliação</div>
+        <p class="muted">A mesa que acompanha, mês a mês (por <b>competência</b>), se cada convênio pagou o que era esperado. É o coração operacional do sistema.</p>
+        <ul>
+          <li><b>Controle Sintético — Convênios:</b> visão mensal por originadora. Lista os convênios da competência com o <b>status da conciliação</b> de cada um; clicar numa linha abre o detalhe.</li>
+          <li><b>Controle Analítico</b> (abre a partir do Sintético): o convênio por dentro, em abas — <b>Conciliação</b> (valor pendente = retorno − repasse), <b>Financeiro</b> (repasses por secretaria), <b>Cobrança</b> (tentativas da competência), <b>Particularidade</b> (rubrica/averbação), <b>Conta</b> (dados bancários), <b>Secretaria</b> e <b>Contato</b>.</li>
+          <li><b>Gerência de Convênios:</b> onde a mesa <b>liga/desliga</b> o que acompanha, define o <b>dia de vencimento</b> e <b>gera a competência</b> (massivo ou por período). A originadora é o <b>grupo master</b>: desligá-la bloqueia todos os convênios dela.</li>
+          <li><b>Responsáveis pela Conciliação:</b> cadastro dos colaboradores e quem <b>responde</b> por cada convênio — titular e substituto temporário, com retorno automático.</li>
+          <li><b>Remessas — por convênio:</b> acompanhamento do <b>envio da remessa</b> de cada vencimento (situação, data, usuário), com histórico.</li>
+        </ul>
+
+        <div class="aba-titulo">📁 Gestão de Convênios</div>
+        <p class="muted">O cadastro-base: quem são os convênios, quem os opera e quanto custa.</p>
+        <ul>
+          <li><b>Convênios:</b> o convênio é identificado pelo <b>CNPJ</b>. Aqui você cadastra o convênio, as <b>originadoras que o operam</b> (cada uma com seu número e vigência própria) e o <b>custo</b> de cada vínculo, versionado por competência.</li>
+          <li><b>Originadoras:</b> cadastro das originadoras — o grupo master que agrupa convênios.</li>
+        </ul>
+
+        <div class="aba-titulo">🔐 Segurança <span class="muted">(só ADMIN)</span></div>
+        <ul>
+          <li><b>Gestão de Usuários</b> (botão 👤 Usuários no topo): <b>aprova ou revoga</b> o acesso de quem se cadastra e define o <b>perfil</b> de cada um.</li>
+        </ul>
+
+        <div class="tbl-hint">💡 <b>Perfis:</b> gravam dados — <b>ADMIN</b>, <b>MASTER</b> e <b>GESTOR</b>; só consultam — <b>OPERADOR</b> e <b>LEITOR</b>. Só o <b>ADMIN</b> gerencia usuários; o <b>MASTER</b> faz o resto.</div>
+      </details>
+    </div>
   </section>
+
+  <style>
+    .guia summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 4px 0; }
+    .guia ul { margin: 6px 0 16px; padding-left: 20px; }
+    .guia li { margin: 6px 0; line-height: 1.55; }
+    .guia .aba-titulo { margin-top: 16px; }
+    .guia > .aba-titulo:first-of-type { margin-top: 8px; }
+  </style>
 
   <!-- ============ PÁGINA: CONCILIAÇÃO (submódulos) ============ -->
   <section class="page" id="page-conciliacao" hidden>

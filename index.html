@@ -1130,7 +1130,8 @@
       <div class="field"><label>Senha</label><input type="password" id="sco-senha" autocomplete="current-password"></div>
       <div class="form-actions"><button class="btn btn-primary" id="btn-sco-entrar" type="button">Entrar</button></div>
       <div class="form-msg" id="msg-sco-login"></div>
-      <p class="muted">Precisa de acesso? <a href="#" id="link-sco-solicitar">Solicitar acesso</a></p>
+      <p class="muted">Precisa de acesso? <a href="#" id="link-sco-solicitar">Criar cadastro</a></p>
+      <p class="muted"><a href="#" id="link-sco-esqueci">Esqueci minha senha</a></p>
     </div>
 
     <div id="sco-form-solicitar" hidden>
@@ -1140,7 +1141,22 @@
       <div class="field"><label>Senha</label><input type="password" id="sco-sol-senha" autocomplete="new-password"></div>
       <div class="form-actions"><button class="btn btn-primary" id="btn-sco-solicitar" type="button">Criar cadastro</button></div>
       <div class="form-msg" id="msg-sco-solicitar"></div>
-      <p class="muted">Você entra com perfil de leitura; um administrador ajusta seu acesso. <a href="#" id="link-sco-voltar-login">Voltar ao login</a></p>
+      <p class="muted">Seu cadastro passa por <b>aprovação de um administrador</b> antes de liberar o acesso. <a href="#" id="link-sco-voltar-login">Voltar ao login</a></p>
+    </div>
+
+    <div id="sco-form-reset" hidden>
+      <div class="aba-titulo">Redefinir senha</div>
+      <div class="field"><label>E-mail</label><input type="email" id="sco-reset-email" autocomplete="username"></div>
+      <div class="form-actions"><button class="btn btn-primary" id="btn-sco-reset-enviar" type="button">Enviar link</button></div>
+      <div class="form-msg" id="msg-sco-reset"></div>
+      <p class="muted">Enviaremos um link para você criar uma nova senha. <a href="#" id="link-sco-reset-voltar">Voltar ao login</a></p>
+    </div>
+
+    <div id="sco-form-nova" hidden>
+      <div class="aba-titulo">Criar nova senha</div>
+      <div class="field"><label>Nova senha</label><input type="password" id="sco-nova-senha" autocomplete="new-password"></div>
+      <div class="form-actions"><button class="btn btn-primary" id="btn-sco-nova-salvar" type="button">Salvar senha</button></div>
+      <div class="form-msg" id="msg-sco-nova"></div>
     </div>
   </div>
 </div>

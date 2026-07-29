@@ -1137,16 +1137,15 @@
       <div class="aba-titulo">Solicitar acesso</div>
       <div class="field"><label>Nome</label><input id="sco-sol-nome"></div>
       <div class="field"><label>E-mail</label><input type="email" id="sco-sol-email"></div>
-      <div class="field"><label>Perfil</label>
-        <select id="sco-sol-perfil"><option>OPERADOR</option><option>LEITOR</option><option>GESTOR</option></select>
-      </div>
-      <div class="form-actions"><button class="btn btn-primary" id="btn-sco-solicitar" type="button">Enviar solicitação</button></div>
+      <div class="field"><label>Senha</label><input type="password" id="sco-sol-senha" autocomplete="new-password"></div>
+      <div class="form-actions"><button class="btn btn-primary" id="btn-sco-solicitar" type="button">Criar cadastro</button></div>
       <div class="form-msg" id="msg-sco-solicitar"></div>
-      <p class="muted">Um autorizador aprova por e-mail. <a href="#" id="link-sco-voltar-login">Voltar ao login</a></p>
+      <p class="muted">Você entra com perfil de leitura; um administrador ajusta seu acesso. <a href="#" id="link-sco-voltar-login">Voltar ao login</a></p>
     </div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/api.js"></script>
 <script src="js/dados_supabase.js"></script>

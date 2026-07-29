@@ -1,43 +1,87 @@
 'use strict';
 
 /* ============================================================
-   dados_supabase.js — Fonte de dados via Supabase (gateway de Edge
-   Functions). Reimplementa a camada api.js apontando para as functions
-   `dados-*`, para o front (GitHub Pages) consumir o Postgres do Supabase.
+   dados_supabase.js — Acesso DIRETO ao banco via supabase-js (PostgREST),
+   protegido por RLS. Sem Edge Functions. Reimplementa a camada api.js dos
+   módulos já migrados; carregue depois de api.js (sobrescreve as funções
+   de lá) e conta com o cliente scoCliente() do auth.js em tempo de chamada.
 
-   Só entra em ação com o Supabase configurado (config.js); sem ele, o
-   painel mantém o modo api/demo. Carregue SEMPRE depois de api.js — estas
-   definições sobrescrevem as de lá.
-
-   Migrado até agora: Originadoras. Convênios, vínculos e custos replicam
-   este mesmo padrão (uma função apiX -> uma acao do gateway dados-gestao).
+   Migrado: Originadoras. Convênios, vínculos e custos replicam este padrão.
    ============================================================ */
 
 if (typeof scoAuthConfigurado === 'function' && scoAuthConfigurado()) {
-  // Com Supabase, a "API" do painel passa a ser o gateway de functions.
-  // A gravação da Gestão é liberada por exigirApi(), que consulta isto.
+  // Com Supabase, "API disponível" = existe sessão (usuário logado).
   apiDisponivel = function () {
     return typeof scoSessao === 'function' && Boolean(scoSessao());
   };
 
-  const _gestao = (corpo) => scoChamarFuncaoAutenticada('dados-gestao', corpo);
+  const _db = function () {
+    const cli = typeof scoCliente === 'function' ? scoCliente() : null;
+    if (!cli) throw new Error('Faça login para acessar os dados.');
+    return cli;
+  };
+
+  const COLS_ORIG = 'id_originadora,nome,codigo,cnpj,ativo,observacao';
+
+  // tb_originadora (banco) -> forma que o front espera (status<->ativo).
+  const _mapOrig = function (o) {
+    return {
+      id_originadora: o.id_originadora,
+      nome: o.nome,
+      codigo: o.codigo || '',
+      cnpj: o.cnpj || '',
+      status: o.ativo ? 'ATIVO' : 'INATIVO',
+      observacao: o.observacao || '',
+      cadastrado: true,
+    };
+  };
+
+  const _registroOrig = function (dados) {
+    return {
+      codigo: (dados.codigo || '').trim() || null,
+      cnpj: (dados.cnpj || '').trim() || null,
+      ativo: String(dados.status || 'ATIVO').toUpperCase() !== 'INATIVO',
+      observacao: (dados.observacao || '').trim() || null,
+    };
+  };
 
   apiOriginadoras = async function () {
-    const dados = await _gestao({ acao: 'listar_originadoras' });
-    return dados.originadoras || [];
+    const { data, error } = await _db()
+      .from('tb_originadora')
+      .select(COLS_ORIG)
+      .order('nome');
+    if (error) throw new Error(error.message);
+    return (data || []).map(_mapOrig);
   };
 
   apiCriarOriginadora = async function (dados) {
-    const resp = await _gestao({ acao: 'salvar_originadora', ...dados });
-    return resp.originadora;
+    const registro = { nome: (dados.nome || '').trim(), ..._registroOrig(dados) };
+    const { data, error } = await _db()
+      .from('tb_originadora')
+      .insert(registro)
+      .select(COLS_ORIG)
+      .single();
+    if (error) throw new Error(error.message);
+    return _mapOrig(data);
   };
 
   apiAtualizarOriginadora = async function (nome, dados) {
-    const resp = await _gestao({ acao: 'salvar_originadora', nome, ...dados });
-    return resp.originadora;
+    const { data, error } = await _db()
+      .from('tb_originadora')
+      .update(_registroOrig(dados))
+      .eq('nome', nome)
+      .select(COLS_ORIG)
+      .single();
+    if (error) throw new Error(error.message);
+    return _mapOrig(data);
   };
 
   apiExcluirOriginadora = async function (nome) {
-    return _gestao({ acao: 'excluir_originadora', nome });
+    const { error } = await _db()
+      .from('tb_originadora')
+      .delete()
+      .eq('nome', nome);
+    if (error) throw new Error(error.message);
+    return { ok: true };
   };
 }
